@@ -43,7 +43,8 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     public static final String DEFAULT_PAUSED_ARROW_COLOR = "B12222";
     public static final String DEFAULT_STOPPED_ARROW_COLOR = "016400";
     public static final String DEFAULT_OFFLINE_ARROW_COLOR = "778899";
-
+    public static final String DEFAULT_COLOR = "0000FF";
+    
     public static final double DEFAULT_ARROW_RADIUS = 5;
 
     public Device() {
@@ -54,6 +55,8 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         iconArrowStoppedColor = DEFAULT_STOPPED_ARROW_COLOR;
         iconArrowOfflineColor = DEFAULT_OFFLINE_ARROW_COLOR;
         iconArrowRadius = DEFAULT_ARROW_RADIUS;
+        color = DEFAULT_COLOR;
+        deviceModelId = -1;
         showName = true;
         showProtocol = true;
         showOdometer = true;
@@ -590,6 +593,28 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     
     public void setDeleted(boolean deleted) {
         this.deleted = deleted;
+    }
+    
+    @Column(nullable=false, columnDefinition = "CHAR(6) default '0000FF'")
+    private String color;
+    
+    public String getColor() {
+        return color;
+    }
+    
+    public void setColor(String color) {
+        this.color = color;
+    }
+    
+    @Column(nullable=false, columnDefinition = "BIGINT default -1")
+    private long deviceModelId;
+    
+    public long getDeviceModelId() {
+        return deviceModelId;
+    }
+    
+    public void setDeviceModelId(long id) {
+        this.deviceModelId = id;
     }
 
     @Override
