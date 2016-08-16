@@ -18,17 +18,22 @@ package pl.datamatica.traccar.model;
 import com.google.gwt.user.client.rpc.*;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Set;
 
 import javax.persistence.*;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.SQLDelete;
 
 @Entity
 @Table(name = "devices",
        indexes = { @Index(name = "devices_pkey", columnList = "id") },
        uniqueConstraints = { @UniqueConstraint(name = "devices_ukey_uniqueid", columnNames = "uniqueid") })
-public class Device implements IsSerializable, GroupedDevice {
+@SQLDelete(sql="UPDATE devices d SET d.deleted = 1 WHERE d.id = ?")
+@FilterDef(name="softDelete", defaultCondition="deleted = 0")
+@Filter(name="softDelete")
+public class Device extends TimestampedEntity implements IsSerializable, GroupedDevice {
 
     private static final long serialVersionUID = 1;
     public static final short DEFAULT_TIMEOUT = 5 * 60;
@@ -393,18 +398,6 @@ public class Device implements IsSerializable, GroupedDevice {
         this.status = status;
     }
 
-    @Column(name = "lastupdate", nullable = true)
-    @Temporal(TemporalType.TIMESTAMP)
-    private Date lastUpdate;
-
-    public Date getLastUpdate() {
-        return lastUpdate;
-    }
-
-    public void setLastUpdate(Date lastUpdate) {
-        this.lastUpdate = lastUpdate;
-    }
-
     @Enumerated(EnumType.STRING)
     private DeviceIconMode iconMode;
 
@@ -586,6 +579,17 @@ public class Device implements IsSerializable, GroupedDevice {
 
     public void setSpeedAlarm(boolean speedAlarm) {
         this.speedAlarm = speedAlarm;
+    }
+    
+    @Column(nullable=false, columnDefinition = "bit default false")
+    private boolean deleted;
+    
+    public boolean isDeleted() {
+        return deleted;
+    }
+    
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     @Override

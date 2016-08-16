@@ -255,7 +255,7 @@ public class User implements IsSerializable, Cloneable {
             joinColumns = { @JoinColumn(name = "user_id", table = "users", referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "report_id", table = "reports", referencedColumnName = "id") })
     
-    private Set<Report> reports;
+    private Set<Report> reports = new HashSet<>();
 
     public Set<Report> getReports() {
         return reports;
@@ -284,7 +284,7 @@ public class User implements IsSerializable, Cloneable {
             joinColumns = { @JoinColumn(name = "user_id", table = "users", referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "group_id", table = "groups", referencedColumnName = "id") })
     
-    private Set<Group> groups;
+    private Set<Group> groups = new HashSet<>();
 
     public Set<Group> getGroups() {
         return groups;
