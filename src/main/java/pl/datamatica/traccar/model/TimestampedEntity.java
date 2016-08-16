@@ -24,6 +24,7 @@ import org.hibernate.annotations.*;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class TimestampedEntity {  
     @UpdateTimestamp
+    @Temporal(javax.persistence.TemporalType.DATE)
     private Date lastUpdate;
 
     public Date getLastUpdate() {
