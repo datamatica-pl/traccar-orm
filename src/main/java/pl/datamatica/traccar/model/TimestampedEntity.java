@@ -18,21 +18,27 @@ package pl.datamatica.traccar.model;
 
 import java.util.Date;
 import javax.persistence.*;
-import org.hibernate.annotations.*;
 
 @MappedSuperclass
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
-public abstract class TimestampedEntity {  
-    @UpdateTimestamp
-    @Temporal(javax.persistence.TemporalType.DATE)
+public abstract class TimestampedEntity {
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date lastUpdate;
 
     public Date getLastUpdate() {
+        if(lastUpdate == null)
+            return new Date(1000);
         return lastUpdate;
     }
-
+    
     public void setLastUpdate(Date updateTime) {
         this.lastUpdate = updateTime;
+    }
+    
+    @PreUpdate
+    @PrePersist
+    public void updateModificationTime() {
+        setLastUpdate(new Date());
     }
     
 }
