@@ -25,7 +25,8 @@ import com.google.gwt.user.client.rpc.*;
 
 @Entity
 @Table(name="users",
-       uniqueConstraints = { @UniqueConstraint(name = "users_ukey_login", columnNames = "login") })
+       uniqueConstraints = { @UniqueConstraint(name = "users_ukey_login", columnNames = "login"),
+                             @UniqueConstraint(name="users_ukey_email", columnNames = "email")})
 public class User implements IsSerializable, Cloneable {
 
     private static final long serialVersionUID = 1;
@@ -394,7 +395,7 @@ public class User implements IsSerializable, Cloneable {
         }
         return result;
     }
-
+    
     
     private String email;
     /**
