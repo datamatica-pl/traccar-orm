@@ -26,6 +26,8 @@ public abstract class TimestampedEntity {
     private Date lastUpdate;
 
     public Date getLastUpdate() {
+        if(lastUpdate == null)
+            return new Date(1000);
         return lastUpdate;
     }
     
