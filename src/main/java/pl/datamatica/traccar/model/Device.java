@@ -616,6 +616,13 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     public void setDeviceModelId(long id) {
         this.deviceModelId = id;
     }
+    
+    @OneToMany(fetch = FetchType.LAZY, mappedBy="device")
+    private List<Position> positions;
+    
+    public List<Position> getPositions() {
+        return positions;
+    }
 
     @Override
     public boolean equals(Object o) {
