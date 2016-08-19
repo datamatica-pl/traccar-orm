@@ -18,27 +18,33 @@ package pl.datamatica.traccar.model;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 public enum DeviceIconType implements IsSerializable {
-    DEFAULT(PositionIconType.humanLatest, PositionIconType.humanOffline),
-    BICYCLE(PositionIconType.bicycleLatest, PositionIconType.bicycleOffline),
-    SEDAN(PositionIconType.humanLatest, PositionIconType.humanOffline),
-    UNIVERSAL(PositionIconType.containerLatest, PositionIconType.containerOffline),
+    DEFAULT(1, PositionIconType.humanLatest, PositionIconType.humanOffline),
+    BICYCLE(2, PositionIconType.bicycleLatest, PositionIconType.bicycleOffline),
+    SEDAN(3, PositionIconType.humanLatest, PositionIconType.humanOffline),
+    UNIVERSAL(4, PositionIconType.containerLatest, PositionIconType.containerOffline),
 
-    MINIVAN(PositionIconType.motoLatest, PositionIconType.motoOffline),
-    TRUCK(PositionIconType.tracktorLatest, PositionIconType.tractorOffline),
-    BUS(PositionIconType.petLatest, PositionIconType.petOffline),
-    LONG_TRUCK(PositionIconType.longTruckLatest, PositionIconType.longTruckOffline),
-    CAR_TRUCK(PositionIconType.carTruckLatest, PositionIconType.carTruckOffline),
+    MINIVAN(5, PositionIconType.motoLatest, PositionIconType.motoOffline),
+    TRUCK(6, PositionIconType.tracktorLatest, PositionIconType.tractorOffline),
+    BUS(7, PositionIconType.petLatest, PositionIconType.petOffline),
+    LONG_TRUCK(8, PositionIconType.longTruckLatest, PositionIconType.longTruckOffline),
+    CAR_TRUCK(9, PositionIconType.carTruckLatest, PositionIconType.carTruckOffline),
 
-    PLANE(PositionIconType.pickupLatest, PositionIconType.pickupOffline),
-    SHIP(PositionIconType.shipLatest, PositionIconType.shipOffline),
-    TRAIN(PositionIconType.quadLatest, PositionIconType.quadOffline);
+    PLANE(10, PositionIconType.pickupLatest, PositionIconType.pickupOffline),
+    SHIP(11, PositionIconType.shipLatest, PositionIconType.shipOffline),
+    TRAIN(12, PositionIconType.quadLatest, PositionIconType.quadOffline);
 
     private final PositionIconType iconLatest;
     private final PositionIconType iconOffline;
+    private final int id;
 
-    DeviceIconType(PositionIconType iconLatest, PositionIconType iconOffline) {
+    DeviceIconType(int id, PositionIconType iconLatest, PositionIconType iconOffline) {
         this.iconLatest = iconLatest;
         this.iconOffline = iconOffline;
+        this.id = id;
+    }
+    
+    public int getId() {
+        return id;
     }
 
     public PositionIconType getPositionIconType(Position.Status status) {
