@@ -617,6 +617,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         this.deviceModelId = id;
     }
     
+    @GwtTransient
     @OneToMany(fetch = FetchType.LAZY, mappedBy="device")
     private List<Position> positions;
     
