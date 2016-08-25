@@ -23,7 +23,7 @@ import java.util.*;
 @Entity
 @Table(name = "geofences",
        indexes = { @Index(name = "geofences_pkey", columnList = "id") })
-public class GeoFence implements IsSerializable {
+public class GeoFence extends TimestampedEntity implements IsSerializable {
 
     public GeoFence() {
         type = GeoFenceType.POLYGON;
