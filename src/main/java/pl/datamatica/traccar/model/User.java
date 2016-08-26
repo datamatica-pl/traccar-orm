@@ -32,6 +32,8 @@ public class User implements IsSerializable, Cloneable {
     private static final long serialVersionUID = 1;
 
     public User() {
+        marketingCheck = false;
+        emailValid = false;
         admin = false;
         manager = false;
         transferNotificationEvents = new HashSet<>();
@@ -551,8 +553,27 @@ public class User implements IsSerializable, Cloneable {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-
     
+    private boolean marketingCheck;
+    
+    public boolean getMarketingCheck() {
+        return marketingCheck;
+    }
+    
+    public void setMarketingCheck(boolean marketingCheck) {
+        this.marketingCheck = marketingCheck;
+    }
+    
+    private boolean emailValid;
+    
+    public boolean isEmailValid() {
+        return emailValid;
+    }
+    
+    public void setEmailValid(boolean valid) {
+        this.emailValid = valid;
+    }
+
     public int getNumberOfDevicesToAdd() {
         int myNumber;
         if (getMaxNumOfDevices() == null) {
