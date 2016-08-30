@@ -624,6 +624,18 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     public List<Position> getPositions() {
         return positions;
     }
+    
+    private Long iconId;
+    
+    public long getIconId() {
+        if(iconId == null)
+            return iconType.getId();
+        return iconId;
+    }
+    
+    public void setIconId(long iconId) {
+        this.iconId = iconId;
+    }
 
     @Override
     public boolean equals(Object o) {

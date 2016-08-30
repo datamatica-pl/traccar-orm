@@ -41,6 +41,7 @@ public class User implements IsSerializable, Cloneable {
 
     public User(String login) {
         this.login = login;
+        this.emailValid = false;
     }
 
     public User(String login, String password) {

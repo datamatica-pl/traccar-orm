@@ -35,15 +35,15 @@ public enum DeviceIconType implements IsSerializable {
 
     private final PositionIconType iconLatest;
     private final PositionIconType iconOffline;
-    private final int id;
+    private final long id;
 
-    DeviceIconType(int id, PositionIconType iconLatest, PositionIconType iconOffline) {
+    DeviceIconType(long id, PositionIconType iconLatest, PositionIconType iconOffline) {
         this.iconLatest = iconLatest;
         this.iconOffline = iconOffline;
         this.id = id;
     }
     
-    public int getId() {
+    public long getId() {
         return id;
     }
 
