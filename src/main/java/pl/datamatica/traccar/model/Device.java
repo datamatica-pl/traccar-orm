@@ -584,7 +584,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         this.speedAlarm = speedAlarm;
     }
     
-    @Column(nullable=false, columnDefinition = "bit default false")
+    @Column(nullable=false, columnDefinition = "boolean default false")
     private boolean deleted;
     
     public boolean isDeleted() {

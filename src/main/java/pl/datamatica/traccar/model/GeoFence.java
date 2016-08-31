@@ -19,10 +19,16 @@ import com.google.gwt.user.client.rpc.*;
 
 import javax.persistence.*;
 import java.util.*;
+import org.hibernate.annotations.Filter;
+import org.hibernate.annotations.FilterDef;
+import org.hibernate.annotations.SQLDelete;
 
 @Entity
 @Table(name = "geofences",
        indexes = { @Index(name = "geofences_pkey", columnList = "id") })
+@SQLDelete(sql = "UPDATE geofences gf SET gf.deleted = 1 where gf.id = ?")
+@FilterDef(name="softDelete", defaultCondition="deleted = 0")
+@Filter(name = "softDelete")
 public class GeoFence extends TimestampedEntity implements IsSerializable {
 
     public GeoFence() {
@@ -166,6 +172,17 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
 
     public void setDevices(Set<Device> devices) {
         this.devices = devices;
+    }
+    
+    @Column(nullable = false, columnDefinition = "boolean default false")
+    private boolean deleted;
+
+    public boolean isDeleted() {
+        return deleted;
+    }
+
+    public void setDeleted(boolean deleted) {
+        this.deleted = deleted;
     }
 
     // collection used to transfer devices through GWT RPC and JSON
