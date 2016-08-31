@@ -14,9 +14,9 @@ public class UserSettings implements IsSerializable {
     private static final long serialVersionUID = 1;
     public static final short DEFAULT_TIME_PRINT_INTERVAL = 10;
 
-    public static final int DEFAULT_ZOOM_LEVEL = 1;
-    public static final double DEFAULT_CENTER_LONGITUDE = 12.5;
-    public static final double DEFAULT_CENTER_LATITUDE = 41.9;
+    public static final int DEFAULT_ZOOM_LEVEL = 6;
+    public static final double DEFAULT_CENTER_LONGITUDE = 21.35;
+    public static final double DEFAULT_CENTER_LATITUDE = 52.06;
 
     public static final short DEFAULT_ZOOM_TO_FOLLOWED_DEVICE_LEVEL = 16;
 
