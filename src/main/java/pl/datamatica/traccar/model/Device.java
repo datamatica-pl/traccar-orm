@@ -15,11 +15,17 @@
  */
 package pl.datamatica.traccar.model;
 
+import com.google.gwt.core.shared.GwtIncompatible;
 import com.google.gwt.user.client.rpc.*;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import java.util.Set;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.persistence.*;
 import org.hibernate.annotations.Filter;
@@ -635,6 +641,42 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     
     public void setIconId(long iconId) {
         this.iconId = iconId;
+    }
+    
+    @Temporal(TemporalType.DATE)
+    private Date validTo;
+    
+    public Date getValidTo() {
+        return validTo;
+    }
+    
+    public void setValidTo(Date validTo) {
+        this.validTo = validTo;
+    }
+    
+    @GwtIncompatible
+    public boolean isValid() {
+        if(getValidTo() == null)
+            return true;
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+            Date today = sdf.parse(sdf.format(new Date()));
+            return today.compareTo(getValidTo()) <= 0;
+        } catch (ParseException ex) {
+            Logger.getLogger(Device.class.getName()).log(Level.SEVERE, null, ex);
+            return false;
+        }
+    }
+    
+    @Column(nullable = false, columnDefinition = "integer default 2")
+    private int historyLength;
+    
+    public int getHistoryLength() {
+        return historyLength;
+    }
+    
+    public void setHistoryLength(int historyLength) {
+        this.historyLength = historyLength;
     }
 
     @Override

@@ -30,6 +30,7 @@ public class RegistrationMaintenance extends MaintenanceBase implements IsSerial
     
     public RegistrationMaintenance() {}
     
+    @Temporal(TemporalType.DATE)
     private Date serviceDate;
 
     RegistrationMaintenance(RegistrationMaintenance other) {
