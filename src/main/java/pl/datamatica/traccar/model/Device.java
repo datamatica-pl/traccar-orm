@@ -67,6 +67,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         showProtocol = true;
         showOdometer = true;
         supportedCommands = new ArrayList<>();
+        historyLength = 2;
     }
 
     public Device(Device device) {
@@ -119,6 +120,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         commandPassword = device.commandPassword;
         supportedCommands = new ArrayList<>(device.supportedCommands);
         protocol = device.protocol;
+        historyLength = device.historyLength;
     }
 
     @Id
