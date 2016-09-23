@@ -121,6 +121,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         supportedCommands = new ArrayList<>(device.supportedCommands);
         protocol = device.protocol;
         historyLength = device.historyLength;
+        validTo = device.validTo;
     }
 
     @Id
