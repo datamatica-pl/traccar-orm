@@ -52,6 +52,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     public static final String DEFAULT_COLOR = "0000FF";
     
     public static final double DEFAULT_ARROW_RADIUS = 5;
+    public static final int DEFAULT_HISTORY_LENGTH_DAYS = 2;
 
     public Device() {
         iconType = DeviceIconType.DEFAULT;
@@ -67,7 +68,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         showProtocol = true;
         showOdometer = true;
         supportedCommands = new ArrayList<>();
-        historyLength = 2;
+        historyLength = DEFAULT_HISTORY_LENGTH_DAYS;
     }
 
     public Device(Device device) {
@@ -671,7 +672,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         }
     }
     
-    @Column(nullable = false, columnDefinition = "integer default 2")
+    @Column(nullable = false, columnDefinition = "integer default " + DEFAULT_HISTORY_LENGTH_DAYS)
     private int historyLength;
     
     public int getHistoryLength() {
