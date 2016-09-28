@@ -22,6 +22,8 @@ import java.util.Set;
 import javax.persistence.*;
 
 import com.google.gwt.user.client.rpc.*;
+import java.util.UUID;
+import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="users",
@@ -573,6 +575,17 @@ public class User implements IsSerializable, Cloneable {
     
     public void setEmailValid(boolean valid) {
         this.emailValid = valid;
+    }
+    
+    @Column(unique = true)
+    private String emailValidationToken;
+    
+    public String getEmailValidationToken() {
+        return emailValidationToken;
+    }
+    
+    public void setEmailValidationToken(String token) {
+        this.emailValidationToken = token;
     }
 
     public int getNumberOfDevicesToAdd() {
