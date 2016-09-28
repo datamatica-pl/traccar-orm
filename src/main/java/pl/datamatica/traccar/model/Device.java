@@ -19,8 +19,11 @@ import com.google.gwt.core.shared.GwtIncompatible;
 import com.google.gwt.user.client.rpc.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -670,6 +673,23 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
             Logger.getLogger(Device.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+    }
+    
+    @GwtIncompatible
+    public long getPaidDaysLeft(LocalDate today) {
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(this.getValidTo());
+        // Calendar month number starts from zero, but in LocalDate starts from one, correct it
+        int monthNum = cal.get(Calendar.MONTH) + 1;
+        LocalDate ldValidTo = LocalDate.of(cal.get(Calendar.YEAR), monthNum, cal.get(Calendar.DAY_OF_MONTH));
+
+        Long daysDiff = ChronoUnit.DAYS.between(today, ldValidTo);
+        Long daysLeft = daysDiff + 1; // +1 because we include last day to paid days
+        if (daysLeft < 0) {
+            daysLeft = 0L;
+        }
+
+        return daysLeft;
     }
     
     @Column(nullable = false, columnDefinition = "integer default " + DEFAULT_HISTORY_LENGTH_DAYS)
