@@ -58,6 +58,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     
     public static final double DEFAULT_ARROW_RADIUS = 5;
     public static final int DEFAULT_HISTORY_LENGTH_DAYS = 2;
+    public static final int NEAR_EXPIRATION_THRESHOLD_DAYS = 7; 
 
     public Device() {
         iconType = DeviceIconType.DEFAULT;
@@ -678,12 +679,20 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     }
     
     public int getSubscriptionDaysLeft(Date from) {
+        if (validTo == null) {
+            return 0;
+        }
+        
         int daysDiff = CalendarUtil.getDaysBetween(from, validTo);
         int daysLeft = daysDiff + 1;
         if (daysLeft < 0) {
             daysLeft = 0;
         }
         return daysLeft;
+    }
+    
+    public boolean isCloseToExpire(Date from) {
+        return (getSubscriptionDaysLeft(from) <= NEAR_EXPIRATION_THRESHOLD_DAYS);
     }
     
     @Column(nullable = false, columnDefinition = "integer default " + DEFAULT_HISTORY_LENGTH_DAYS)
