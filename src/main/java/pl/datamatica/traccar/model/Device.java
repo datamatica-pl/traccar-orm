@@ -35,6 +35,8 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.SQLDelete;
 
+import com.google.gwt.user.datepicker.client.CalendarUtil;
+
 @Entity
 @Table(name = "devices",
        indexes = { @Index(name = "devices_pkey", columnList = "id") },
@@ -675,20 +677,12 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         }
     }
     
-    @GwtIncompatible
-    public long getPaidDaysLeft(LocalDate today) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(this.getValidTo());
-        // Calendar month number starts from zero, but in LocalDate starts from one, correct it
-        int monthNum = cal.get(Calendar.MONTH) + 1;
-        LocalDate ldValidTo = LocalDate.of(cal.get(Calendar.YEAR), monthNum, cal.get(Calendar.DAY_OF_MONTH));
-
-        Long daysDiff = ChronoUnit.DAYS.between(today, ldValidTo);
-        Long daysLeft = daysDiff + 1; // +1 because we include last day to paid days
+    public int getSubscriptionDaysLeft(Date from) {
+        int daysDiff = CalendarUtil.getDaysBetween(from, validTo);
+        int daysLeft = daysDiff + 1;
         if (daysLeft < 0) {
-            daysLeft = 0L;
+            daysLeft = 0;
         }
-
         return daysLeft;
     }
     
