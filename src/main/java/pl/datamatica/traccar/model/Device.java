@@ -692,7 +692,8 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     }
     
     public boolean isCloseToExpire(Date from) {
-        return (getSubscriptionDaysLeft(from) <= NEAR_EXPIRATION_THRESHOLD_DAYS);
+        int daysLeft = getSubscriptionDaysLeft(from);
+        return (daysLeft <= NEAR_EXPIRATION_THRESHOLD_DAYS && daysLeft > 0);
     }
     
     @Column(nullable = false, columnDefinition = "integer default " + DEFAULT_HISTORY_LENGTH_DAYS)
