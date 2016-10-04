@@ -665,17 +665,38 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     }
     
     @GwtIncompatible
-    public boolean isValid() {
+    public boolean isValid(Date today) {
         if(getValidTo() == null)
             return true;
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date today = sdf.parse(sdf.format(new Date()));
+            today = sdf.parse(sdf.format(today));
             return today.compareTo(getValidTo()) <= 0;
         } catch (ParseException ex) {
             Logger.getLogger(Device.class.getName()).log(Level.SEVERE, null, ex);
             return false;
         }
+    }
+    
+    @GwtIncompatible
+    public Date getLastAvailablePositionDate(Date today) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            today = sdf.parse(sdf.format(today));
+        } catch (ParseException e) {
+            Logger.getLogger(Device.class.getName()).log(Level.SEVERE, null, e);
+        }
+        
+        int availableHistoryLength = DEFAULT_HISTORY_LENGTH_DAYS;
+        if (isValid(today)) {
+            availableHistoryLength = getHistoryLength();
+        }
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(today);
+        cal.add(Calendar.DATE, -availableHistoryLength);
+        
+        return cal.getTime();
     }
     
     public int getSubscriptionDaysLeft(Date from) {
