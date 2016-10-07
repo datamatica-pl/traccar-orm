@@ -19,8 +19,11 @@ import com.google.gwt.core.shared.GwtIncompatible;
 import com.google.gwt.user.client.rpc.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Set;
@@ -31,6 +34,8 @@ import javax.persistence.*;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.SQLDelete;
+
+import com.google.gwt.user.datepicker.client.CalendarUtil;
 
 @Entity
 @Table(name = "devices",
@@ -52,6 +57,8 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     public static final String DEFAULT_COLOR = "0000FF";
     
     public static final double DEFAULT_ARROW_RADIUS = 5;
+    public static final int DEFAULT_HISTORY_LENGTH_DAYS = 2;
+    public static final int NEAR_EXPIRATION_THRESHOLD_DAYS = 7; 
 
     public Device() {
         iconType = DeviceIconType.DEFAULT;
@@ -67,7 +74,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         showProtocol = true;
         showOdometer = true;
         supportedCommands = new ArrayList<>();
-        historyLength = 2;
+        historyLength = DEFAULT_HISTORY_LENGTH_DAYS;
     }
 
     public Device(Device device) {
@@ -121,6 +128,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         supportedCommands = new ArrayList<>(device.supportedCommands);
         protocol = device.protocol;
         historyLength = device.historyLength;
+        validTo = device.validTo;
     }
 
     @Id
@@ -657,12 +665,12 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     }
     
     @GwtIncompatible
-    public boolean isValid() {
+    public boolean isValid(Date today) {
         if(getValidTo() == null)
             return true;
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-            Date today = sdf.parse(sdf.format(new Date()));
+            today = sdf.parse(sdf.format(today));
             return today.compareTo(getValidTo()) <= 0;
         } catch (ParseException ex) {
             Logger.getLogger(Device.class.getName()).log(Level.SEVERE, null, ex);
@@ -670,7 +678,46 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         }
     }
     
-    @Column(nullable = false, columnDefinition = "integer default 2")
+    @GwtIncompatible
+    public Date getLastAvailablePositionDate(Date today) {
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        try {
+            today = sdf.parse(sdf.format(today));
+        } catch (ParseException e) {
+            Logger.getLogger(Device.class.getName()).log(Level.SEVERE, null, e);
+        }
+        
+        int availableHistoryLength = DEFAULT_HISTORY_LENGTH_DAYS;
+        if (isValid(today)) {
+            availableHistoryLength = getHistoryLength();
+        }
+
+        Calendar cal = Calendar.getInstance();
+        cal.setTime(today);
+        cal.add(Calendar.DATE, -availableHistoryLength);
+        
+        return cal.getTime();
+    }
+    
+    public int getSubscriptionDaysLeft(Date from) {
+        if (validTo == null) {
+            return 0;
+        }
+        
+        int daysDiff = CalendarUtil.getDaysBetween(from, validTo);
+        int daysLeft = daysDiff + 1;
+        if (daysLeft < 0) {
+            daysLeft = 0;
+        }
+        return daysLeft;
+    }
+    
+    public boolean isCloseToExpire(Date from) {
+        int daysLeft = getSubscriptionDaysLeft(from);
+        return (daysLeft <= NEAR_EXPIRATION_THRESHOLD_DAYS && daysLeft > 0);
+    }
+    
+    @Column(nullable = false, columnDefinition = "integer default " + DEFAULT_HISTORY_LENGTH_DAYS)
     private int historyLength;
     
     public int getHistoryLength() {
