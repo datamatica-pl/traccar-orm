@@ -15,6 +15,7 @@
  */
 package pl.datamatica.traccar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gwt.user.client.rpc.GwtTransient;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -39,6 +40,7 @@ public class Picture implements IsSerializable {
     }
 
     @Enumerated(EnumType.STRING)
+    @JsonIgnore
     private PictureType type;
 
     public PictureType getType() {
@@ -53,6 +55,7 @@ public class Picture implements IsSerializable {
     @Basic(fetch = FetchType.LAZY)
     @Column(length = 1024 * 1024) // max 1 MB
     @GwtTransient
+    @JsonIgnore
     private byte[] data;
 
     public byte[] getData() {
@@ -66,6 +69,7 @@ public class Picture implements IsSerializable {
     private int width;
     private int height;
     
+    @JsonIgnore
     private String mimeType;
 
     public int getWidth() {

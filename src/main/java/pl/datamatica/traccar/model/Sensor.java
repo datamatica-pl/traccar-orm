@@ -15,6 +15,7 @@
  */
 package pl.datamatica.traccar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 import javax.persistence.*;
@@ -39,6 +40,7 @@ public class Sensor implements IsSerializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false, unique = true)
+    @JsonIgnore
     private long id;
 
     public long getId() {
@@ -51,6 +53,7 @@ public class Sensor implements IsSerializable {
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(foreignKey = @ForeignKey(name = "sensors_fkey_device_id"))
+    @JsonIgnore
     private Device device;
 
     public Device getDevice() {
@@ -81,6 +84,7 @@ public class Sensor implements IsSerializable {
         this.parameterName = parameterName;
     }
 
+    @JsonIgnore
     private String description;
 
     public String getDescription() {

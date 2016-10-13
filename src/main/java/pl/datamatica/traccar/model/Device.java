@@ -15,12 +15,11 @@
  */
 package pl.datamatica.traccar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gwt.core.shared.GwtIncompatible;
 import com.google.gwt.user.client.rpc.*;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -143,7 +142,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     @GwtTransient
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(foreignKey = @ForeignKey(name = "devices_fkey_position_id"))
-    
+    @JsonIgnore
     private Position latestPosition;
 
     public void setLatestPosition(Position latestPosition) {
@@ -242,6 +241,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
                foreignKey = @ForeignKey(name = "users_devices_fkey_devices_id"),
                joinColumns = { @JoinColumn(name = "devices_id", table = "devices", referencedColumnName = "id") },
                inverseJoinColumns = { @JoinColumn(name = "users_id", table = "users", referencedColumnName = "id") })
+    @JsonIgnore
     private Set<User> users;
 
     public Set<User> getUsers() {
@@ -255,7 +255,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     @GwtTransient
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "devices_fkey_owner_id"))
-    
+    @JsonIgnore
     private User owner;
 
     public User getOwner() {
@@ -291,7 +291,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
 
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "devices_fkey_photo_id"))
-    
+    @JsonIgnore
     private Picture photo;
 
     public Picture getPhoto() {
@@ -302,7 +302,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         this.photo = photo;
     }
 
-    
+    @JsonIgnore
     private String phoneNumber;
 
     public String getPhoneNumber() {
@@ -313,7 +313,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         this.phoneNumber = phoneNumber;
     }
 
-    
+    @JsonIgnore
     private String plateNumber;
 
     public String getPlateNumber() {
@@ -324,7 +324,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         this.plateNumber = plateNumber;
     }
 
-    
+    @JsonIgnore
     private String vehicleInfo;
 
     public String getVehicleInfo() {
@@ -337,7 +337,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
 
     // contains current odometer value in kilometers
     @Column(nullable = true)
-    
+    @JsonIgnore
     private double odometer;
 
     public double getOdometer() {
@@ -350,7 +350,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
 
     // indicates that odometer must be updated automatically by positions history
     @Column(nullable = true)
-    
+    @JsonIgnore
     private boolean autoUpdateOdometer;
 
     public boolean isAutoUpdateOdometer() {

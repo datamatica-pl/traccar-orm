@@ -1,5 +1,7 @@
 package pl.datamatica.traccar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 import javax.persistence.*;
@@ -162,7 +164,7 @@ public class UserSettings implements IsSerializable {
         this.followedDeviceZoomLevel = followedDeviceZoomLevel;
     }
 
-    
+    @JsonIgnore
     private String timeZoneId;
 
     public String getTimeZoneId() {
@@ -181,7 +183,7 @@ public class UserSettings implements IsSerializable {
     @Column(nullable = true)
     private boolean maximizeOverviewMap;
 
-    
+    @JsonIgnore
     private String overlays;
 
     public Integer getZoomLevel() {
@@ -233,84 +235,84 @@ public class UserSettings implements IsSerializable {
     }
 
     @Column(nullable = true)
-    
+    @JsonIgnore
     private boolean hideZeroCoordinates;
     @Column(nullable = true)
-    
+    @JsonIgnore
     private boolean hideInvalidLocations;
     @Column(nullable = true)
-    
+    @JsonIgnore
     private boolean hideDuplicates;
-    
+    @JsonIgnore
     private Double minDistance;
-    
+    @JsonIgnore
     private String speedModifier;
-    
+    @JsonIgnore
     private Double speedForFilter;
 
-    
+    @JsonIgnore
     public boolean isHideZeroCoordinates() {
         return hideZeroCoordinates;
     }
 
-    
+    @JsonProperty
     public void setHideZeroCoordinates(boolean hideZeroCoordinates) {
         this.hideZeroCoordinates = hideZeroCoordinates;
     }
 
-    
+    @JsonIgnore
     public boolean isHideInvalidLocations() {
         return hideInvalidLocations;
     }
 
-    
+    @JsonProperty
     public void setHideInvalidLocations(boolean hideInvalidLocations) {
         this.hideInvalidLocations = hideInvalidLocations;
     }
 
-    
+    @JsonIgnore
     public boolean isHideDuplicates() {
         return hideDuplicates;
     }
 
-    
+    @JsonProperty
     public void setHideDuplicates(boolean hideDuplicates) {
         this.hideDuplicates = hideDuplicates;
     }
 
-    
+    @JsonIgnore
     public Double getMinDistance() {
         return minDistance;
     }
 
-    
+    @JsonProperty
     public void setMinDistance(Double minDistance) {
         this.minDistance = minDistance;
     }
 
-    
+    @JsonIgnore
     public String getSpeedModifier() {
         return speedModifier;
     }
 
-    
+    @JsonProperty
     public void setSpeedModifier(String speedModifier) {
         this.speedModifier = speedModifier;
     }
 
-    
+    @JsonIgnore
     public Double getSpeedForFilter() {
         return speedForFilter;
     }
 
-    
+    @JsonProperty
     public void setSpeedForFilter(Double speedForFilter) {
         this.speedForFilter = speedForFilter;
     }
 
     @Enumerated(EnumType.STRING)
     @Column(nullable = true)
-    
+    @JsonIgnore
     private PositionIconType archiveMarkerType;
 
     public PositionIconType getArchiveMarkerType() {

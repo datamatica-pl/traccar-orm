@@ -1,5 +1,6 @@
 package pl.datamatica.traccar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 import javax.persistence.*;
@@ -16,6 +17,7 @@ public class ApplicationSettings implements IsSerializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false, unique = true)
+    @JsonIgnore
     private long id;
 
     public ApplicationSettings() {
@@ -39,7 +41,7 @@ public class ApplicationSettings implements IsSerializable {
     private boolean disallowDeviceManagementByUsers;
 
     @Column(nullable = true)
-    
+    @JsonIgnore
     private boolean eventRecordingEnabled;
 
     @Column(nullable = true)
@@ -85,7 +87,7 @@ public class ApplicationSettings implements IsSerializable {
         this.eventRecordingEnabled = eventRecordingEnabled;
     }
 
-    
+    @JsonIgnore
     private String language;
 
     public String getLanguage() {
@@ -96,7 +98,7 @@ public class ApplicationSettings implements IsSerializable {
         this.language = language;
     }
 
-    
+    @JsonIgnore
     private String salt;
 
     public String getSalt() {
@@ -107,7 +109,7 @@ public class ApplicationSettings implements IsSerializable {
         this.salt = salt;
     }
 
-    
+    @JsonIgnore
     private String bingMapsKey;
 
     public String getBingMapsKey() {

@@ -15,6 +15,7 @@
  */
 package pl.datamatica.traccar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gwt.user.client.rpc.GwtTransient;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -77,6 +78,7 @@ public class Report implements IsSerializable {
             foreignKey = @ForeignKey(name = "reports_users_fkey_report_id"),
             joinColumns = { @JoinColumn(name = "report_id", table = "reports", referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "user_id", table = "users", referencedColumnName = "id") })
+    @JsonIgnore
     private Set<User> users;
 
     public Set<User> getUsers() {

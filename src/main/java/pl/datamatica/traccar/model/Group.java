@@ -15,6 +15,7 @@
  */
 package pl.datamatica.traccar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gwt.user.client.rpc.GwtTransient;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
@@ -79,6 +80,7 @@ public class Group implements IsSerializable, GroupedDevice {
             foreignKey = @ForeignKey(name = "groups_users_fkey_report_id"),
             joinColumns = { @JoinColumn(name = "group_id", table = "groups", referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "user_id", table = "users", referencedColumnName = "id") })
+    @JsonIgnore
     private Set<User> users;
 
     public Set<User> getUsers() {
@@ -91,7 +93,7 @@ public class Group implements IsSerializable, GroupedDevice {
 
     @ManyToOne
     @JoinColumn(foreignKey = @ForeignKey(name = "groups_fkey_parent_id"))
-    
+    @JsonIgnore
     @GwtTransient
     private Group parent;
 

@@ -15,6 +15,7 @@
  */
 package pl.datamatica.traccar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -96,7 +97,7 @@ public class User implements IsSerializable, Cloneable {
         return login;
     }
 
-    
+    @JsonIgnore
     private String password;
     
     public void setPassword(String password) {
@@ -156,7 +157,7 @@ public class User implements IsSerializable, Cloneable {
                foreignKey = @ForeignKey(name = "users_devices_fkey_users_id"),
                joinColumns = { @JoinColumn(name = "users_id", table = "users", referencedColumnName = "id") },
                inverseJoinColumns = { @JoinColumn(name = "devices_id", table = "devices", referencedColumnName = "id") })
-    
+    @JsonIgnore
     private Set<Device> devices = new HashSet<>();
 
     public void setDevices(Set<Device> devices) {
@@ -167,7 +168,7 @@ public class User implements IsSerializable, Cloneable {
         return devices;
     }
 
-    
+    @JsonIgnore
     public Set<Device> getAllAvailableDevices() {
         Set<Device> devices = new HashSet<>();
         devices.addAll(getDevices());
@@ -185,7 +186,7 @@ public class User implements IsSerializable, Cloneable {
             foreignKey = @ForeignKey(name = "users_geofences_fkey_user_id"),
             joinColumns = { @JoinColumn(name = "user_id", table = "users", referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "geofence_id", table = "geofences", referencedColumnName = "id") })
-    
+    @JsonIgnore
     private Set<GeoFence> geoFences;
 
     public void setGeoFences(Set<GeoFence> geoFences) {
@@ -196,7 +197,7 @@ public class User implements IsSerializable, Cloneable {
         return geoFences;
     }
 
-    
+    @JsonIgnore
     public Set<GeoFence> getAllAvailableGeoFences() {
         Set<GeoFence> result = new HashSet<>();
         result.addAll(getGeoFences());
@@ -260,7 +261,7 @@ public class User implements IsSerializable, Cloneable {
             foreignKey = @ForeignKey(name = "reports_users_fkey_user_id"),
             joinColumns = { @JoinColumn(name = "user_id", table = "users", referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "report_id", table = "reports", referencedColumnName = "id") })
-    
+    @JsonIgnore
     private Set<Report> reports = new HashSet<>();
 
     public Set<Report> getReports() {
@@ -271,7 +272,7 @@ public class User implements IsSerializable, Cloneable {
         this.reports = reports;
     }
 
-    
+    @JsonIgnore
     public Set<Report> getAllAvailableReports() {
         Set<Report> reports = new HashSet<>();
         reports.addAll(getReports());
@@ -289,7 +290,7 @@ public class User implements IsSerializable, Cloneable {
             foreignKey = @ForeignKey(name = "groups_users_fkey_user_id"),
             joinColumns = { @JoinColumn(name = "user_id", table = "users", referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "group_id", table = "groups", referencedColumnName = "id") })
-    
+    @JsonIgnore
     private Set<Group> groups = new HashSet<>();
 
     public Set<Group> getGroups() {
@@ -300,7 +301,7 @@ public class User implements IsSerializable, Cloneable {
         this.groups = groups;
     }
 
-    
+    @JsonIgnore
     public Set<Group> getAllAvailableGroups() {
         Set<Group> result = new HashSet<>();
         result.addAll(getGroups());
@@ -365,7 +366,7 @@ public class User implements IsSerializable, Cloneable {
     @GwtTransient
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "users_fkey_managedby_id"))
-    
+    @JsonIgnore
     private User managedBy;
 
     public User getManagedBy() {
@@ -378,7 +379,7 @@ public class User implements IsSerializable, Cloneable {
 
     @GwtTransient
     @OneToMany(mappedBy = "managedBy", fetch = FetchType.LAZY)
-    
+    @JsonIgnore
     private Set<User> managedUsers;
 
     public Set<User> getManagedUsers() {
@@ -389,7 +390,7 @@ public class User implements IsSerializable, Cloneable {
         this.managedUsers = managedUsers;
     }
 
-    
+    @JsonIgnore
     public Set<User> getAllManagedUsers() {
         Set<User> result = new HashSet<>();
         result.addAll(getManagedUsers());
@@ -401,13 +402,13 @@ public class User implements IsSerializable, Cloneable {
         return result;
     }
     
-    
+    @JsonIgnore
     private String email;
     /**
      * @deprecated now user can select types of events for notifications
      */
     @Column(nullable = true)
-    
+    @JsonIgnore
     private boolean notifications;
 
     public String getEmail() {
@@ -433,7 +434,7 @@ public class User implements IsSerializable, Cloneable {
     @Column(name = "type", nullable = false)
     @Enumerated(EnumType.STRING)
     @GwtTransient
-    
+    @JsonIgnore
     private Set<DeviceEventType> notificationEvents;
 
     public Set<DeviceEventType> getNotificationEvents() {
@@ -445,7 +446,7 @@ public class User implements IsSerializable, Cloneable {
     }
 
     @Transient
-    
+    @JsonIgnore
     private Set<DeviceEventType> transferNotificationEvents;
 
     public Set<DeviceEventType> getTransferNotificationEvents() {
@@ -479,7 +480,7 @@ public class User implements IsSerializable, Cloneable {
     }
 
     @Column(nullable = true)
-    
+    @JsonIgnore
     private boolean blocked;
 
     public boolean isBlocked() {
@@ -491,7 +492,7 @@ public class User implements IsSerializable, Cloneable {
     }
 
     @Temporal(TemporalType.DATE)
-    
+    @JsonIgnore
     private Date expirationDate;
 
     public Date getExpirationDate() {
@@ -502,7 +503,7 @@ public class User implements IsSerializable, Cloneable {
         this.expirationDate = expirationDate;
     }
 
-    
+    @JsonIgnore
     private Integer maxNumOfDevices;
 
     public Integer getMaxNumOfDevices() {
@@ -513,16 +514,16 @@ public class User implements IsSerializable, Cloneable {
         this.maxNumOfDevices = maxNumOfDevices;
     }
 
-    
+    @JsonIgnore
     private String companyName;
 
-    
+    @JsonIgnore
     private String firstName;
 
-    
+    @JsonIgnore
     private String lastName;
 
-    
+    @JsonIgnore
     private String phoneNumber;
 
     public String getCompanyName() {
@@ -588,6 +589,7 @@ public class User implements IsSerializable, Cloneable {
         this.emailValidationToken = token;
     }
 
+    @JsonIgnore
     public int getNumberOfDevicesToAdd() {
         int myNumber;
         if (getMaxNumOfDevices() == null) {
@@ -600,7 +602,7 @@ public class User implements IsSerializable, Cloneable {
         return Math.min(myNumber, managerNumber);
     }
 
-    
+    @JsonIgnore
     public User getUserWhoReachedLimitOnDevicesNumber() {
         User user = this;
         while (user != null && user.getNumberOfDevicesToAdd() == 0) {
@@ -612,7 +614,7 @@ public class User implements IsSerializable, Cloneable {
         return null;
     }
 
-    
+    @JsonIgnore
     public int getNumberOfDevicesToDistribute() {
         Integer maxNumberOfDevices = getMaxNumOfDevices();
         User manager = this;

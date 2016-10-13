@@ -15,6 +15,7 @@
  */
 package pl.datamatica.traccar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import java.util.List;
 
@@ -151,6 +152,7 @@ public class Position implements IsSerializable, Cloneable {
     /**
      * @deprecated not used anymore by the traccar backend, left for backwards compatibility
      */
+    @JsonIgnore
     private Double power;
 
     public Double getPower() {
@@ -203,6 +205,7 @@ public class Position implements IsSerializable, Cloneable {
     }
 
     @GwtTransient
+    @JsonIgnore
     private transient Status status;
 
     public Status getStatus() {
@@ -214,6 +217,7 @@ public class Position implements IsSerializable, Cloneable {
     }
 
     @Transient
+    @JsonIgnore
     private IdleStatus idleStatus;
 
     public IdleStatus getIdleStatus() {
@@ -225,6 +229,7 @@ public class Position implements IsSerializable, Cloneable {
     }
 
     @GwtTransient
+    @JsonIgnore
     private transient PositionIcon icon;
 
     public PositionIcon getIcon() {
@@ -236,6 +241,7 @@ public class Position implements IsSerializable, Cloneable {
     }
 
     @Transient
+    @JsonIgnore
     private Date idleSince;
 
     public Date getIdleSince() {
@@ -247,6 +253,7 @@ public class Position implements IsSerializable, Cloneable {
     }
 
     @Transient
+    @JsonIgnore
     private double distance;
 
     public double getDistance() {

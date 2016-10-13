@@ -15,6 +15,8 @@
  */
 package pl.datamatica.traccar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gwt.user.client.rpc.*;
 
 import javax.persistence.*;
@@ -62,6 +64,7 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
         return name;
     }
     
+    @JsonIgnore
     private String description;
 
     public String getDescription() {
@@ -83,7 +86,7 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
     }
 
     @Enumerated(EnumType.STRING)
-    
+    @JsonIgnore
     private GeoFenceType type;
 
     
@@ -99,7 +102,7 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
     // will hold list of lon/lat pairs of base points for this geo-fence separated by comma
     // for example: -1.342 1.23423,33.442324 54.3454
     @Column(length = 2048)
-    
+    @JsonIgnore
     private String points;
 
     
@@ -113,7 +116,7 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
     }
 
     // for circular geo-fence contains radius, for line it's width
-    
+    @JsonIgnore
     private float radius;
 
     
@@ -132,7 +135,7 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
             foreignKey = @ForeignKey(name = "users_geofences_fkey_geofence_id"),
             joinColumns = { @JoinColumn(name = "geofence_id", table = "geofences", referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "user_id", table = "users", referencedColumnName = "id") })
-    
+    @JsonIgnore
     private Set<User> users;
 
     public Set<User> getUsers() {
@@ -146,7 +149,7 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
     // indicates that this geo-fence is applied to all available devices
     // it is possible to configure geo-fence per device
     @Column(nullable = true)
-    
+    @JsonIgnore
     private boolean allDevices;
 
     public boolean isAllDevices() {
@@ -163,7 +166,7 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
             foreignKey = @ForeignKey(name = "devices_geofences_fkey_geofence_id"),
             joinColumns = { @JoinColumn(name = "geofence_id", table = "geofences", referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "device_id", table = "devices", referencedColumnName = "id") })
-    
+    @JsonIgnore
     private Set<Device> devices;
 
     public Set<Device> getDevices() {
@@ -187,7 +190,7 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
 
     // collection used to transfer devices through GWT RPC and JSON
     @Transient
-    
+    @JsonIgnore
     private Set<Device> transferDevices;
 
     public Set<Device> getTransferDevices() {

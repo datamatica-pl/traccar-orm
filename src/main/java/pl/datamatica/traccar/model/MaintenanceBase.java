@@ -17,6 +17,7 @@
 
 package pl.datamatica.traccar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gwt.user.client.rpc.IsSerializable;
 import javax.persistence.*;
 
@@ -32,7 +33,8 @@ public abstract class MaintenanceBase implements IsSerializable {
     
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "id", nullable = false, updatable = false, unique = true) 
+    @Column(name = "id", nullable = false, updatable = false, unique = true)
+    @JsonIgnore
     protected long id;
     
     public long getId(){
@@ -66,7 +68,7 @@ public abstract class MaintenanceBase implements IsSerializable {
     
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(foreignKey = @ForeignKey(name = "maintenances_fkey_device_id"))
-    
+    @JsonIgnore
     protected Device device;
 
     public Device getDevice() {
