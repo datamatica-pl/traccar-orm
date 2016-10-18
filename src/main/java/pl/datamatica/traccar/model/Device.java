@@ -634,6 +634,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     }
     
     @GwtTransient
+    @JsonIgnore
     @OneToMany(fetch = FetchType.LAZY, mappedBy="device")
     private List<Position> positions = new ArrayList<>();
     
