@@ -728,6 +728,17 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     public void setHistoryLength(int historyLength) {
         this.historyLength = historyLength;
     }
+    
+    @Column(nullable = false, columnDefinition="bit default false")
+    private boolean isBlocked;
+    
+    public boolean isBlocked() {
+        return isBlocked;
+    }
+    
+    public void setBlocked(boolean isBlocked) {
+        this.isBlocked = isBlocked;
+    }
 
     @Override
     public boolean equals(Object o) {
