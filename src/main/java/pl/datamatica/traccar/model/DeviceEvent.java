@@ -29,7 +29,7 @@ public class DeviceEvent {
     private long id;
 
     @Temporal(TemporalType.TIMESTAMP)
-    private Date time;
+    private Date time = new Date();
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(foreignKey = @ForeignKey(name = "events_fkey_device_id"))
