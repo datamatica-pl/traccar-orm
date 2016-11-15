@@ -24,6 +24,7 @@ import javax.persistence.*;
 
 import com.google.gwt.user.client.rpc.*;
 import java.util.UUID;
+import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.GenericGenerator;
 
 @Entity
@@ -158,6 +159,7 @@ public class User implements IsSerializable, Cloneable {
                joinColumns = { @JoinColumn(name = "users_id", table = "users", referencedColumnName = "id") },
                inverseJoinColumns = { @JoinColumn(name = "devices_id", table = "devices", referencedColumnName = "id") })
     @JsonIgnore
+    @Filter(name="softDelete")
     private Set<Device> devices = new HashSet<>();
 
     public void setDevices(Set<Device> devices) {
