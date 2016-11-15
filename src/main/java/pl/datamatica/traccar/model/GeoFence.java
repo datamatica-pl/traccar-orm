@@ -37,7 +37,6 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
         type = GeoFenceType.POLYGON;
         color = "4169E1";
         radius = 30f;
-        allDevices = true;
     }
 
     public GeoFence(long id, String name) {
@@ -150,7 +149,7 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
     // it is possible to configure geo-fence per device
     @Column(nullable = true)
     @JsonIgnore
-    private boolean allDevices;
+    private boolean allDevices = false;
 
     public boolean isAllDevices() {
         return allDevices;
