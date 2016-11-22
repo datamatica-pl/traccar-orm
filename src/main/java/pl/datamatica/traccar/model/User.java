@@ -23,6 +23,9 @@ import java.util.Set;
 import javax.persistence.*;
 
 import com.google.gwt.user.client.rpc.*;
+import java.util.EnumMap;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.UUID;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.GenericGenerator;
@@ -53,6 +56,14 @@ public class User implements IsSerializable, Cloneable {
         this.password = password;
         this.geoFences = new HashSet<>();
         this.managedUsers = new HashSet<>();
+        mobileNotificationSettings = getDefaultNotificationSettings();
+    }
+    
+    private Map<MobNotificationType, MobNotificationMode> getDefaultNotificationSettings() {
+        Map<MobNotificationType, MobNotificationMode> map = new EnumMap<>(MobNotificationType.class);
+        map.put(MobNotificationType.GEOFENCE, MobNotificationMode.NOTIFICATION);
+        map.put(MobNotificationType.OVERSPEED, MobNotificationMode.NOTIFICATION);
+        return map;
     }
 
     public User(User user) {
@@ -457,6 +468,20 @@ public class User implements IsSerializable, Cloneable {
 
     public void setTransferNotificationEvents(Set<DeviceEventType> transferNotificationEvents) {
         this.transferNotificationEvents = transferNotificationEvents;
+    }
+    
+    @ElementCollection
+    @JoinTable(name = "users_mobilenotifications", joinColumns = @JoinColumn(name="user_id"))
+    @GwtTransient
+    @JsonIgnore
+    private Map<MobNotificationType, MobNotificationMode> mobileNotificationSettings;
+    
+    public Map<MobNotificationType, MobNotificationMode> getMobileNotificationSettings() {
+        return mobileNotificationSettings;
+    }
+    
+    public void setMobileNotificationSettings(Map<MobNotificationType, MobNotificationMode> settings) {
+        mobileNotificationSettings = new HashMap<>(settings);
     }
 
     @Column(nullable = true)
