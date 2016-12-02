@@ -47,6 +47,7 @@ public enum CommandType implements IsSerializable {
     custom;
 
     public static final String KEY_FREQUENCY = "frequency";
+    public static final String KEY_FREQUENCY_STOP = "frequencyStop";
     public static final String KEY_TIMEZONE = "timezone";
     public static final String KEY_RADIUS = "radius";
     public static final String KEY_PHONE_NUMBER = "phoneNumber";
