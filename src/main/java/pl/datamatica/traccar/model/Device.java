@@ -729,6 +729,12 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         this.historyLength = historyLength;
     }
     
+    public int getAlertsHistoryLength() {
+        if(isValid(new Date()))
+            return Math.min(getHistoryLength(), 7);
+        return 2;
+    }
+    
     @Column(nullable = false, columnDefinition="bit default false")
     private boolean isBlocked;
     
