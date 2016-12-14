@@ -729,6 +729,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         this.historyLength = historyLength;
     }
     
+    @GwtIncompatible
     public int getAlertsHistoryLength() {
         if(isValid(new Date()))
             return Math.min(getHistoryLength(), 7);
