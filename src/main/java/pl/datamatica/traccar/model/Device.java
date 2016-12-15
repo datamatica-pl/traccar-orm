@@ -661,7 +661,10 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     }
     
     public void setValidTo(Date validTo) {
-        this.validTo = new java.sql.Date(validTo.getTime());
+        if(validTo == null)
+            this.validTo = null;
+        else
+            this.validTo = new java.sql.Date(validTo.getTime());
     }
     
     @GwtIncompatible
