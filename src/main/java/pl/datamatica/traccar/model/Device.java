@@ -654,15 +654,14 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         this.iconId = iconId;
     }
     
-    @Temporal(TemporalType.DATE)
-    private Date validTo;
+    private java.sql.Date validTo;
     
-    public Date getValidTo() {
+    public java.sql.Date getValidTo() {
         return validTo;
     }
     
     public void setValidTo(Date validTo) {
-        this.validTo = validTo;
+        this.validTo = new java.sql.Date(validTo.getTime());
     }
     
     @GwtIncompatible
