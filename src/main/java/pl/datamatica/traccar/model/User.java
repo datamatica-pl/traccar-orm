@@ -632,6 +632,24 @@ public class User implements IsSerializable, Cloneable {
     }
     
     @JsonIgnore
+    public boolean acceptsNotification(DeviceEventType type) {
+        switch(type) {
+            case GEO_FENCE_ENTER:
+            case GEO_FENCE_EXIT:
+                return mobileNotificationSettings.get(MobNotificationType.GEOFENCE) 
+                        == MobNotificationMode.NOTIFICATION;
+            case MAINTENANCE_REQUIRED:
+                return mobileNotificationSettings.get(MobNotificationType.MAINTENANCE)
+                        == MobNotificationMode.NOTIFICATION;
+            case OVERSPEED:
+                return mobileNotificationSettings.get(MobNotificationType.OVERSPEED)
+                        == MobNotificationMode.NOTIFICATION;
+            default:
+                return false;
+        }
+    }
+    
+    @JsonIgnore
     public int getNumberOfDevicesToAdd() {
         int myNumber;
         if (getMaxNumOfDevices() == null) {
