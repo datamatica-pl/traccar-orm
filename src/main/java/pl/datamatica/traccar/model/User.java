@@ -23,8 +23,10 @@ import java.util.Set;
 import javax.persistence.*;
 
 import com.google.gwt.user.client.rpc.*;
+import java.util.ArrayList;
 import java.util.EnumMap;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.UUID;
 import org.hibernate.annotations.Filter;
@@ -616,6 +618,19 @@ public class User implements IsSerializable, Cloneable {
         this.emailValidationToken = token;
     }
 
+    @GwtTransient
+    @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<UserSession> sessions;
+
+    public List<UserSession> getSessions() {
+        return sessions;
+    }
+
+    public void setSessions(List<UserSession> sessions) {
+        this.sessions = new ArrayList<>(sessions);
+    }
+    
     @JsonIgnore
     public int getNumberOfDevicesToAdd() {
         int myNumber;
