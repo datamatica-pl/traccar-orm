@@ -633,6 +633,8 @@ public class User implements IsSerializable, Cloneable {
     
     @JsonIgnore
     public boolean acceptsNotification(DeviceEventType type) {
+        if(blocked)
+            return false;
         switch(type) {
             case GEO_FENCE_ENTER:
             case GEO_FENCE_EXIT:
