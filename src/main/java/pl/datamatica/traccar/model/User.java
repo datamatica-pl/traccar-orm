@@ -214,20 +214,7 @@ public class User implements IsSerializable, Cloneable {
 
     @JsonIgnore
     public Set<GeoFence> getAllAvailableGeoFences() {
-        Set<GeoFence> result = new HashSet<>();
-        result.addAll(getGeoFences());
-        if (getManager()) {
-            for (User user : getManagedUsers()) {
-                result.addAll(user.getAllAvailableGeoFences());
-            }
-        }
-        User managedBy = getManagedBy();
-        while (managedBy != null) {
-            result.addAll(managedBy.getGeoFences());
-            managedBy = managedBy.getManagedBy();
-        }
-
-        return result;
+        return getGeoFences();
     }
 
     public boolean hasAccessTo(GeoFence geoFence) {
