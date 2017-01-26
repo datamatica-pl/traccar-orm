@@ -580,13 +580,24 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     
     @Transient
     private boolean isIgnitionEnabled;
-
+    
     public boolean isIgnitionEnabled() {
         return isIgnitionEnabled;
     }
-
+    
     public void setIgnitionEnabled(boolean isIgnitionEnabled) {
         this.isIgnitionEnabled = isIgnitionEnabled;
+    }
+    
+    @Transient
+    private boolean unreadAlarms;
+
+    public boolean hasUnreadAlarms() {
+        return unreadAlarms;
+    }
+
+    public void setUnreadAlarms(boolean isIgnitionEnabled) {
+        this.unreadAlarms = isIgnitionEnabled;
     }
     
     @Column(columnDefinition = "bit default false")
