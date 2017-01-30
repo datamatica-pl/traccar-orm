@@ -600,6 +600,17 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         this.unreadAlarms = isIgnitionEnabled;
     }
     
+    @Transient
+    private Date lastAlarmsCheck;
+    
+    public Date getLastAlarmsCheck() {
+        return lastAlarmsCheck;
+    }
+    
+    public void setLastAlarmsCheck(Date date) {
+        lastAlarmsCheck = date;
+    }
+    
     @Column(columnDefinition = "bit default false")
     private boolean speedAlarm;
 
