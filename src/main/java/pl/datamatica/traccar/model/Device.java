@@ -15,6 +15,7 @@
  */
 package pl.datamatica.traccar.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gwt.core.shared.GwtIncompatible;
 import com.google.gwt.user.client.rpc.*;
@@ -601,6 +602,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     }
     
     @Transient
+    @JsonIgnore
     private Date lastAlarmsCheck;
     
     public Date getLastAlarmsCheck() {
@@ -676,17 +678,15 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         this.iconId = iconId;
     }
     
-    private java.sql.Date validTo;
+    @Temporal(TemporalType.DATE)
+    private Date validTo;
     
-    public java.sql.Date getValidTo() {
+    public Date getValidTo() {
         return validTo;
     }
     
     public void setValidTo(Date validTo) {
-        if(validTo == null)
-            this.validTo = null;
-        else
-            this.validTo = new java.sql.Date(validTo.getTime());
+        this.validTo = validTo;
     }
     
     @GwtIncompatible
