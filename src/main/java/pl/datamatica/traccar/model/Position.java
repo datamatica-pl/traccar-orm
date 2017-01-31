@@ -29,6 +29,7 @@ import com.google.gwt.user.client.rpc.*;
 public class Position implements IsSerializable, Cloneable {
 
     private static final long serialVersionUID = 1;
+    public static final String ALARM_KEY = "alarm";
 
     public enum Status {
         OFFLINE, LATEST;
