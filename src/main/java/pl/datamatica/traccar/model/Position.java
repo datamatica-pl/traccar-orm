@@ -16,6 +16,9 @@
 package pl.datamatica.traccar.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.databind.JsonNode;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.google.gwt.core.shared.GwtIncompatible;
 import java.util.Date;
 import java.util.List;
 
@@ -29,7 +32,7 @@ import com.google.gwt.user.client.rpc.*;
 public class Position implements IsSerializable, Cloneable {
 
     private static final long serialVersionUID = 1;
-    public static final String ALARM_KEY = "alarm";
+    private static final String ALARM_KEY = "alarm";
 
     public enum Status {
         OFFLINE, LATEST;
@@ -288,6 +291,21 @@ public class Position implements IsSerializable, Cloneable {
     @Override
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
+    }
+    
+    @GwtIncompatible
+    public boolean isAlarm() {
+        boolean isAlarm;
+        ObjectMapper mapper = new ObjectMapper();
+        
+        try {
+            JsonNode rootNode = mapper.readTree(other);
+            isAlarm = rootNode.path(ALARM_KEY).asBoolean(false);
+        } catch (Exception e) {
+            isAlarm = false;
+        }
+        
+        return isAlarm;
     }
 
     @Override
