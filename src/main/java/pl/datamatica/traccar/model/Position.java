@@ -16,8 +16,6 @@
 package pl.datamatica.traccar.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.databind.JsonNode;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.gwt.core.shared.GwtIncompatible;
 import java.util.Date;
 import java.util.List;
@@ -33,6 +31,11 @@ public class Position implements IsSerializable, Cloneable {
 
     private static final long serialVersionUID = 1;
     private static final String ALARM_KEY = "alarm";
+    
+    public static int VALID_STATUS_CORRECT_POSITION = 0;
+    public static int VALID_STATUS_ALARM = 1;
+    public static int VALID_STATUS_TIME_OUT_OF_RANGE = 2;
+    public static int VALID_STATUS_ALARM_AND_TIME_OUT_OF_RANGE = 3;
 
     public enum Status {
         OFFLINE, LATEST;
@@ -59,6 +62,7 @@ public class Position implements IsSerializable, Cloneable {
         address = position.address;
         other = position.other;
         distance = position.distance;
+        validStatus = position.validStatus;
     }
 
     @Id
@@ -239,7 +243,17 @@ public class Position implements IsSerializable, Cloneable {
     public void setIdleStatus(IdleStatus idleStatus) {
         this.idleStatus = idleStatus;
     }
+    
+    private Integer validStatus;
 
+    public Integer getValidStatus() {
+        return validStatus;
+    }
+
+    public void setValidStatus(Integer validStatus) {
+        this.validStatus = validStatus;
+    }
+    
     @GwtTransient
     @JsonIgnore
     private transient PositionIcon icon;
@@ -287,7 +301,6 @@ public class Position implements IsSerializable, Cloneable {
         this.geoFences = geoFences;
     }
 
-
     @Override
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
@@ -295,17 +308,12 @@ public class Position implements IsSerializable, Cloneable {
     
     @GwtIncompatible
     public boolean isAlarm() {
-        boolean isAlarm;
-        ObjectMapper mapper = new ObjectMapper();
-        
-        try {
-            JsonNode rootNode = mapper.readTree(other);
-            isAlarm = rootNode.path(ALARM_KEY).asBoolean(false);
-        } catch (Exception e) {
-            isAlarm = false;
-        }
-        
-        return isAlarm;
+        return validStatus != null && validStatus == VALID_STATUS_ALARM;
+    }
+    
+    @GwtIncompatible
+    public boolean hasProperValidStatus() {
+        return validStatus == null || validStatus == VALID_STATUS_CORRECT_POSITION;
     }
 
     @Override
