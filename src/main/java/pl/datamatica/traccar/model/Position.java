@@ -307,11 +307,6 @@ public class Position implements IsSerializable, Cloneable {
     }
     
     @GwtIncompatible
-    public boolean isAlarm() {
-        return validStatus != null && validStatus == VALID_STATUS_ALARM;
-    }
-    
-    @GwtIncompatible
     public boolean hasProperValidStatus() {
         return validStatus == null || validStatus == VALID_STATUS_CORRECT_POSITION;
     }
