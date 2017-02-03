@@ -28,58 +28,23 @@ import org.junit.Test;
 public class PositionTest {
 
     @Test
-    public void testAlarmTrue() throws Exception {
+    public void testNullValidStatus() throws Exception {
         Position position = new Position();
-        position.setOther("{\"alarm\":true}");
-        assertTrue(position.isAlarm());
+        assertTrue(position.hasProperValidStatus());
     }
 
     @Test
-    public void testAlarmTrueString() throws Exception {
+    public void testProperValidStatus() throws Exception {
         Position position = new Position();
-        position.setOther("{\"alarm\":\"true\"}");
-        assertTrue(position.isAlarm());
+        position.setValidStatus(Position.VALID_STATUS_CORRECT_POSITION);
+        assertTrue(position.hasProperValidStatus());
     }
 
     @Test
-    public void testAlarmFalse() throws Exception {
+    public void testAlarmValidStatus() throws Exception {
         Position position = new Position();
-        position.setOther("{\"alarm\":false}");
-        assertFalse(position.isAlarm());
-    }
-
-    @Test
-    public void testAlarmFalseString() throws Exception {
-        Position position = new Position();
-        position.setOther("{\"alarm\":\"false\"}");
-        assertFalse(position.isAlarm());
-    }
-
-    @Test
-    public void testAlarmNotExists() throws Exception {
-        Position position = new Position();
-        position.setOther("{\"ignition\":\"true\"}");
-        assertFalse(position.isAlarm());
-    }
-
-    @Test
-    public void testAlarmJsonEmpty() throws Exception {
-        Position position = new Position();
-        position.setOther("{}");
-        assertFalse(position.isAlarm());
-    }
-
-    @Test
-    public void testAlarmJsonEmptyString() throws Exception {
-        Position position = new Position();
-        position.setOther("");
-        assertFalse(position.isAlarm());
-    }
-
-    @Test
-    public void testAlarmOtherNotExists() throws Exception {
-        Position position = new Position();
-        assertFalse(position.isAlarm());
+        position.setValidStatus(Position.VALID_STATUS_ALARM);
+        assertFalse(position.hasProperValidStatus());
     }
 
 }
