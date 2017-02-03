@@ -15,7 +15,6 @@
  */
 package pl.datamatica.traccar.model;
 
-import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gwt.core.shared.GwtIncompatible;
 import com.google.gwt.user.client.rpc.*;
@@ -668,14 +667,22 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     
     private Long iconId;
     
-    public long getIconId() {
-        if(iconId == null)
-            return iconType.getId();
+    public Long getIconId() {
         return iconId;
     }
     
-    public void setIconId(long iconId) {
+    public void setIconId(Long iconId) {
         this.iconId = iconId;
+    }
+    
+    private Long customIconId;
+    
+    public Long getCustomIconId() {
+        return customIconId;
+    }
+    
+    public void setCustomIconId(Long value) {
+        this.customIconId = value;
     }
     
     @Temporal(TemporalType.DATE)

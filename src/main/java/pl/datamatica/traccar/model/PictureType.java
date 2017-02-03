@@ -16,7 +16,9 @@
 package pl.datamatica.traccar.model;
 
 public enum PictureType {
-    MARKER(40 * 1024, 256, 256), DEVICE_PHOTO(300 * 1024, 1024, 768);
+    MARKER(40 * 1024, 256, 256), 
+    DEVICE_PHOTO(300 * 1024, 1024, 768), 
+    ICON(40*1024, 192, 192);
 
     final int maxFileSize;
     final int maxWidth;
