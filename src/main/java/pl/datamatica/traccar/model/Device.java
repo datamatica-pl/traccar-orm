@@ -612,17 +612,6 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         lastAlarmsCheck = date;
     }
     
-    @Column(columnDefinition = "bit default false")
-    private boolean speedAlarm;
-
-    public boolean getSpeedAlarm() {
-        return speedAlarm;
-    }
-
-    public void setSpeedAlarm(boolean speedAlarm) {
-        this.speedAlarm = speedAlarm;
-    }
-    
     @Column(nullable=false, columnDefinition = "boolean default false")
     private boolean deleted;
     
@@ -776,6 +765,23 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     
     public void setBlocked(boolean isBlocked) {
         this.isBlocked = isBlocked;
+    }
+    
+    private Integer battery;
+    
+    public Integer getBatteryLevel() {
+        return battery;
+    }
+    
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date battTime;
+    
+    public Date getBatteryTime() {
+        return battTime;
+    }
+    
+    public int getBatteryTimeout() {
+        return 3600;
     }
 
     @Override
