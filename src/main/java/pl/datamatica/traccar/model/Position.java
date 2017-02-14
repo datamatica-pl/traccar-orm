@@ -300,6 +300,17 @@ public class Position implements IsSerializable, Cloneable {
     public void setGeoFences(List<GeoFence> geoFences) {
         this.geoFences = geoFences;
     }
+    
+    @Transient
+    private int stopTime = 0;
+    
+    public int getStopTime() {
+        return stopTime;
+    }
+    
+    public void increaseStopTime(int delta) {
+        this.stopTime += delta;
+    }
 
     @Override
     public int hashCode() {
