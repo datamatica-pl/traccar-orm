@@ -767,19 +767,24 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         this.isBlocked = isBlocked;
     }
     
+    @JsonIgnore
     private Integer battery;
     
+    @JsonIgnore
     public Integer getBatteryLevel() {
         return battery;
     }
     
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @JsonIgnore
     private Date battTime;
     
+    @JsonIgnore
     public Date getBatteryTime() {
         return battTime;
     }
     
+    @JsonIgnore
     public int getBatteryTimeout() {
         return 3600;
     }
