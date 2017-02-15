@@ -24,7 +24,13 @@ public enum ReportType implements IsSerializable {
             return true;
         }
     },
-    DRIVES_AND_STOPS,
+    DRIVES_AND_STOPS {
+        @Override
+        public boolean supportsMapDisplay() {
+            return true;
+        }
+        
+    },
     MILEAGE_DETAIL,
     OVERSPEEDS,
     GEO_FENCE_IN_OUT {
