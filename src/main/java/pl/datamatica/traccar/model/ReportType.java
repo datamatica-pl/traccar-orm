@@ -46,6 +46,11 @@ public enum ReportType implements IsSerializable {
         }
 
         @Override
+        public boolean supportsMapDisplay() {
+            return true;
+        }
+        
+        @Override
         public boolean supportsFiltering() {
             return false;
         }
