@@ -139,6 +139,10 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         return id;
     }
     
+    public void setId(long id) {
+        this.id = id;
+    }
+    
     @GwtTransient
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(foreignKey = @ForeignKey(name = "devices_fkey_position_id"))
