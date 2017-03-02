@@ -792,6 +792,19 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     public int getBatteryTimeout() {
         return 3600;
     }
+    
+    @JsonIgnore
+    private Integer positionFreq;
+    
+    public Integer getPositionFreq() {
+        return positionFreq;
+    }
+    
+    private Boolean autoArm;
+    
+    public Boolean isAutoArmed() {
+        return autoArm;
+    }
 
     @Override
     public boolean equals(Object o) {
