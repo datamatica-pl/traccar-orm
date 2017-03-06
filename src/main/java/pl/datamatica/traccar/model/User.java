@@ -28,9 +28,7 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.UUID;
 import org.hibernate.annotations.Filter;
-import org.hibernate.annotations.GenericGenerator;
 
 @Entity
 @Table(name="users",
@@ -606,7 +604,7 @@ public class User implements IsSerializable, Cloneable {
     }
 
     @GwtTransient
-    @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "userId", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @JsonIgnore
     private List<UserSession> sessions;
 
