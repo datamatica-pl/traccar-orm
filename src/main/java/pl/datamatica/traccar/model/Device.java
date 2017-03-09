@@ -139,6 +139,10 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         return id;
     }
     
+    public void setId(long id) {
+        this.id = id;
+    }
+    
     @GwtTransient
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(foreignKey = @ForeignKey(name = "devices_fkey_position_id"))
@@ -612,17 +616,6 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         lastAlarmsCheck = date;
     }
     
-    @Column(columnDefinition = "bit default false")
-    private boolean speedAlarm;
-
-    public boolean getSpeedAlarm() {
-        return speedAlarm;
-    }
-
-    public void setSpeedAlarm(boolean speedAlarm) {
-        this.speedAlarm = speedAlarm;
-    }
-    
     @Column(nullable=false, columnDefinition = "boolean default false")
     private boolean deleted;
     
@@ -776,6 +769,41 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     
     public void setBlocked(boolean isBlocked) {
         this.isBlocked = isBlocked;
+    }
+    
+    @JsonIgnore
+    private Integer battery;
+    
+    @JsonIgnore
+    public Integer getBatteryLevel() {
+        return battery;
+    }
+    
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @JsonIgnore
+    private Date battTime;
+    
+    @JsonIgnore
+    public Date getBatteryTime() {
+        return battTime;
+    }
+    
+    @JsonIgnore
+    public int getBatteryTimeout() {
+        return 3600;
+    }
+    
+    @JsonIgnore
+    private Integer positionFreq;
+    
+    public Integer getPositionFreq() {
+        return positionFreq;
+    }
+    
+    private Boolean autoArm;
+    
+    public Boolean isAutoArmed() {
+        return autoArm;
     }
 
     @Override
