@@ -44,6 +44,8 @@ public enum CommandType implements IsSerializable {
     voiceCallMode,
     sleepMode,
     exitSleepMode,
+    setAgpsOn,
+    setAgpsOff,
     custom;
 
     public static final String KEY_FREQUENCY = "frequency";
