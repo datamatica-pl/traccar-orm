@@ -692,7 +692,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     @GwtIncompatible
     public boolean isValid(Date today) {
         if(getValidTo() == null)
-            return true;
+            return false;
         try {
             SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
             today = sdf.parse(sdf.format(today));
@@ -757,7 +757,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     public int getAlertsHistoryLength() {
         if(isValid(new Date()))
             return Math.min(getHistoryLength(), 7);
-        return 2;
+        return DEFAULT_HISTORY_LENGTH_DAYS;
     }
     
     @Column(nullable = false, columnDefinition="bit default false")
