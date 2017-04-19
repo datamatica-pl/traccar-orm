@@ -261,6 +261,21 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
         }
         return this;
     }
+    
+    @Override
+    public GeoFence clone() {
+        GeoFence gf = new GeoFence();
+        gf.id = this.id;
+        gf.name = this.name;
+        gf.description = this.description;
+        gf.color = this.color;
+        gf.type = this.type;
+        gf.points = this.points;
+        gf.radius = this.radius;
+        gf.devices = new HashSet<>(this.devices);
+        gf.deleted = this.deleted;
+        return gf;
+    }
 
     @Override
     public String toString() {
