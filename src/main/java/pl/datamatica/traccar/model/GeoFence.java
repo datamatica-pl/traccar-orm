@@ -16,6 +16,7 @@
 package pl.datamatica.traccar.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gwt.core.shared.GwtIncompatible;
 import com.google.gwt.user.client.rpc.*;
 
 import javax.persistence.*;
@@ -263,6 +264,7 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
     }
     
     @Override
+    @GwtIncompatible
     public GeoFence clone() {
         GeoFence gf = new GeoFence();
         gf.id = this.id;
