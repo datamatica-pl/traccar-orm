@@ -152,7 +152,7 @@ public class Report implements IsSerializable {
         this.toDate = toDate;
     }
 
-    private boolean includeMap;
+    private boolean includeMap = true;
 
     public boolean isIncludeMap() {
         return includeMap;

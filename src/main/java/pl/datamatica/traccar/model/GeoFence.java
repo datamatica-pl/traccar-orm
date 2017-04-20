@@ -16,7 +16,6 @@
 package pl.datamatica.traccar.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonProperty;
 import com.google.gwt.user.client.rpc.*;
 
 import javax.persistence.*;
@@ -145,20 +144,6 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
         this.users = users;
     }
 
-    // indicates that this geo-fence is applied to all available devices
-    // it is possible to configure geo-fence per device
-    @Column(nullable = true)
-    @JsonIgnore
-    private boolean allDevices = false;
-
-    public boolean isAllDevices() {
-        return allDevices;
-    }
-
-    public void setAllDevices(boolean allDevices) {
-        this.allDevices = allDevices;
-    }
-
     @GwtTransient
     @ManyToMany(fetch = FetchType.LAZY)
     @JoinTable(name = "devices_geofences",
@@ -271,11 +256,25 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
         type = geoFence.type;
         points = geoFence.points;
         radius = geoFence.radius;
-        allDevices = geoFence.allDevices;
         if (geoFence.transferDevices != null) {
             transferDevices = new HashSet<>(geoFence.getTransferDevices());
         }
         return this;
+    }
+    
+    @Override
+    public GeoFence clone() {
+        GeoFence gf = new GeoFence();
+        gf.id = this.id;
+        gf.name = this.name;
+        gf.description = this.description;
+        gf.color = this.color;
+        gf.type = this.type;
+        gf.points = this.points;
+        gf.radius = this.radius;
+        gf.devices = new HashSet<>(this.devices);
+        gf.deleted = this.deleted;
+        return gf;
     }
 
     @Override
