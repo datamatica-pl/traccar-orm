@@ -32,7 +32,12 @@ public enum ReportType implements IsSerializable {
         
     },
     MILEAGE_DETAIL,
-    OVERSPEEDS,
+    OVERSPEEDS {
+        @Override
+        public boolean supportsMapDisplay() {
+            return true;
+        }
+    },
     GEO_FENCE_IN_OUT {
         @Override
         public boolean supportsGeoFences() {
