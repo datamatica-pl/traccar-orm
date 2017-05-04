@@ -122,6 +122,19 @@ public class User implements IsSerializable, Cloneable {
     public String getPassword() {
         return password;
     }
+    
+    @Transient
+    @GwtTransient
+    @JsonIgnore
+    private transient String passwordRaw;
+    
+    public String getPasswordRaw() {
+        return passwordRaw;
+    }
+    
+    public void setPasswordRaw(String password) {
+        this.passwordRaw = password;
+    }
 
     private PasswordHashMethod password_hash_method;
 
@@ -622,6 +635,17 @@ public class User implements IsSerializable, Cloneable {
     
     public void setEmailValidationToken(String token) {
         this.emailValidationToken = token;
+    }
+    
+    @Column(unique = true)
+    private String passResetToken;
+    
+    public String getPassResetToken() {
+        return passResetToken;
+    }
+    
+    public void setPassResetToken(String token) {
+        this.passResetToken = token;
     }
 
     @GwtTransient
