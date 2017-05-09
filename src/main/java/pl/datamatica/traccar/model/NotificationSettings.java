@@ -101,6 +101,21 @@ public class NotificationSettings implements IsSerializable {
     private String password;
     @Enumerated(EnumType.STRING)
     private SecureConnectionType secureConnectionType;
+    @GwtTransient
+    @Column(columnDefinition="int default 0")
+    private int nfail = 0;
+    
+    public int getFailCount() {
+        return nfail;
+    }
+    
+    public void clearFailures() {
+        nfail = 0;
+    }
+    
+    public void increaseFailures() {
+        ++nfail;
+    }    
 
     @GwtTransient
     @OneToMany(mappedBy = "settings", fetch = FetchType.LAZY)
@@ -200,6 +215,7 @@ public class NotificationSettings implements IsSerializable {
         setPassword(s.getPassword());
         setSecureConnectionType(s.getSecureConnectionType());
         setPushbulletAccessToken(s.getPushbulletAccessToken());
+        nfail = s.nfail;
     }
 
     public NotificationTemplate findTemplate(DeviceEventType type) {
