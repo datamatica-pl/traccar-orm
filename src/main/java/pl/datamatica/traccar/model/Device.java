@@ -583,25 +583,14 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     }
     
     @Transient
-    private boolean isIgnitionEnabled;
-    
-    public boolean isIgnitionEnabled() {
-        return isIgnitionEnabled;
-    }
-    
-    public void setIgnitionEnabled(boolean isIgnitionEnabled) {
-        this.isIgnitionEnabled = isIgnitionEnabled;
-    }
-    
-    @Transient
     private boolean unreadAlarms;
 
     public boolean hasUnreadAlarms() {
         return unreadAlarms;
     }
 
-    public void setUnreadAlarms(boolean isIgnitionEnabled) {
-        this.unreadAlarms = isIgnitionEnabled;
+    public void setUnreadAlarms(boolean unreadAlarms) {
+        this.unreadAlarms = unreadAlarms;
     }
     
     @Transient
@@ -791,6 +780,19 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     @JsonIgnore
     public int getBatteryTimeout() {
         return 3600;
+    }
+    
+    private Boolean ignition;
+    
+    public Boolean getIgnition() {
+        return ignition;
+    }
+    
+    @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    private Date ignTime;
+    
+    public Date getIgnitionTime() {
+        return ignTime;
     }
     
     @JsonIgnore
