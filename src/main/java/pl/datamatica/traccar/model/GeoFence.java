@@ -185,6 +185,16 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
     public void setTransferDevices(Set<Device> transferDevices) {
         this.transferDevices = transferDevices;
     }
+    
+    private String address;
+    
+    public String getAddress() {
+        return address;
+    }
+    
+    public void setAddress(String address) {
+        this.address = address;
+    }
 
     @Override
     public boolean equals(Object o) {
