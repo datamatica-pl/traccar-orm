@@ -16,18 +16,18 @@
  */
 package pl.datamatica.traccar.model;
 
+import com.google.gwt.user.client.rpc.GwtTransient;
 import com.google.gwt.user.client.rpc.IsSerializable;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
@@ -50,9 +50,13 @@ public class Route implements IsSerializable, Cloneable {
     @Temporal(TemporalType.TIMESTAMP)
     private Date deadline;
     private String status;
-    @OneToMany(cascade = CascadeType.ALL)
+    @OneToMany(cascade = {CascadeType.ALL})
     @OrderColumn(name="point_index")
     private List<RoutePoint> routePoints = new ArrayList<>();
+    @ManyToOne
+    @JoinColumn(nullable=false)
+    @GwtTransient
+    private User owner;
 
     public Route() {}
     
@@ -64,6 +68,7 @@ public class Route implements IsSerializable, Cloneable {
         this.deadline = copy.deadline;
         this.status = copy.status;
         this.routePoints = new ArrayList<>(copy.routePoints);
+        this.owner = copy.owner;
     }
     
     public long getId() {
@@ -112,5 +117,21 @@ public class Route implements IsSerializable, Cloneable {
 
     public void setName(String name) {
         this.name = name;
+    }
+    
+    public User getOwner() {
+        return owner;
+    }
+    
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+
+    public void update(Route updated) {
+        this.name = updated.name;
+        this.device = updated.device;
+        this.status = updated.status;
+        this.deadline = updated.deadline;
+        this.routePoints = updated.routePoints;
     }
 }
