@@ -782,15 +782,18 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         return 3600;
     }
     
+    @JsonIgnore
     private Boolean ignition;
     
     public Boolean getIgnition() {
         return ignition;
     }
     
+    @JsonIgnore
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date ignTime;
     
+    @JsonIgnore
     public Date getIgnitionTime() {
         return ignTime;
     }
