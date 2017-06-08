@@ -768,6 +768,11 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         return battery;
     }
     
+    @JsonIgnore
+    public void setBatteryLevel(Integer level) {
+        this.battery = level;
+    }
+    
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     @JsonIgnore
     private Date battTime;
@@ -775,6 +780,11 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     @JsonIgnore
     public Date getBatteryTime() {
         return battTime;
+    }
+    
+    @JsonIgnore
+    public void setBatteryTime(Date time) {
+        this.battTime = time;
     }
     
     @JsonIgnore
