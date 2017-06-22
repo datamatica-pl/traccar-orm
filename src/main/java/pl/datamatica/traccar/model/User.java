@@ -173,6 +173,10 @@ public class User implements IsSerializable, Cloneable {
         return getAdmin() || getManager();
     }
     
+    public Boolean isImeiManager() {
+        return login.equals("imei_manager");
+    }
+    
     @JsonIgnore
     @Transient
     private boolean premium;
