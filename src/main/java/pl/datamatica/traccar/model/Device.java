@@ -88,6 +88,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         idleSpeedThreshold = device.idleSpeedThreshold;
         minIdleTime = device.minIdleTime;
         speedLimit = device.speedLimit;
+        fuelCapacity = device.fuelCapacity;
         iconType = device.iconType;
         icon = device.getIcon();
         photo = device.getPhoto();
