@@ -23,21 +23,21 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderColumn;
-import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
+import javax.persistence.Transient;
+import pl.datamatica.traccar.model.GeoFence.LonLat;
 
-@Entity
-@Table(name="routes")
-public class Route implements IsSerializable, Cloneable {
+@MappedSuperclass
+public class Route implements IsSerializable, Cloneable {    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false, unique = true)
@@ -57,7 +57,9 @@ public class Route implements IsSerializable, Cloneable {
     @JoinColumn(nullable=false)
     @GwtTransient
     private User owner;
-
+    @Transient
+    private LonLat[] linePoints;
+    
     public Route() {}
     
     public Route(Route copy) {
@@ -125,6 +127,14 @@ public class Route implements IsSerializable, Cloneable {
     
     public void setOwner(User owner) {
         this.owner = owner;
+    }
+    
+    public LonLat[] getLinePoints() {
+        return linePoints;
+    }
+    
+    public void setLinePoints(LonLat[] ll) {
+        linePoints = ll; 
     }
 
     public void update(Route updated) {

@@ -4,5 +4,7 @@
         "http://gwtproject.org/doctype/2.7.0/gwt-module.dtd">
 
 <module>
-    <source path="model" />
+    <source path="model">
+        <exclude name="DbRoute.java" />
+    </source>
 </module>

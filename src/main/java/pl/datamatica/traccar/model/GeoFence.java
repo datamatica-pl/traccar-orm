@@ -218,10 +218,12 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
         return result;
     }
 
-    public static class LonLat {
-        public final double lon;
-        public final double lat;
+    public static class LonLat implements IsSerializable {
+        public double lon;
+        public double lat;
 
+        public LonLat() {}
+        
         public LonLat(double lon, double lat) {
             this.lon = lon;
             this.lat = lat;
