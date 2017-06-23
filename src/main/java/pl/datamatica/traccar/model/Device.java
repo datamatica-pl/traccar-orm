@@ -88,6 +88,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         idleSpeedThreshold = device.idleSpeedThreshold;
         minIdleTime = device.minIdleTime;
         speedLimit = device.speedLimit;
+        fuelCapacity = device.fuelCapacity;
         iconType = device.iconType;
         icon = device.getIcon();
         photo = device.getPhoto();
@@ -232,6 +233,17 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
 
     public void setSpeedLimit(Double speedLimit) {
         this.speedLimit = speedLimit;
+    }
+    
+    @Column(nullable = true)
+    private Double fuelCapacity;
+
+    public Double getFuelCapacity() {
+        return fuelCapacity;
+    }
+
+    public void setFuelCapacity(Double fuelCapacity) {
+        this.fuelCapacity = fuelCapacity;
     }
 
     // Hibernate bug HHH-8783: (http://hibernate.atlassian.net/browse/HHH-8783)
