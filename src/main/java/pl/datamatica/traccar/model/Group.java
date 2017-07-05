@@ -27,7 +27,7 @@ import java.util.Set;
        indexes = { @Index(name = "groups_pkey", columnList = "id") })
 public class Group implements IsSerializable, GroupedDevice {
     public Group() {
-        isMine = true;
+        shared = true;
     }
 
     public Group(long id, String name) {
@@ -106,14 +106,25 @@ public class Group implements IsSerializable, GroupedDevice {
     }
     
     @Transient
-    private boolean isMine;
+    private boolean shared;
     
-    public boolean isMine() {
-        return isMine;
+    public boolean isShared() {
+        return shared;
     }
     
-    public void setMine(boolean isMine) {
-        this.isMine = isMine;
+    public void setShared(boolean shared) {
+        this.shared = shared;
+    }
+    
+    @Transient
+    private boolean owned;
+    
+    public boolean isOwned() {
+        return owned;
+    }
+    
+    public void setOwned(boolean owned) {
+        this.owned = owned;
     }
 
     @Override
