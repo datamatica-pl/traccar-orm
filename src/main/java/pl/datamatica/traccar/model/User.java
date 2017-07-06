@@ -100,6 +100,11 @@ public class User implements IsSerializable, Cloneable {
     public long getId() {
         return id;
     }
+    
+    //web
+    public void setId(long id) {
+        this.id = id;
+    }
 
     private String login;
 
