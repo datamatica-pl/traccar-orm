@@ -112,7 +112,10 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
             }
         }
         group = device.group == null ? null : new Group(device.group.getId()).copyFrom(device.group);
+        deviceModelId = device.deviceModelId;
 
+        iconId = device.iconId;
+        customIconId = device.customIconId;
         iconMode = device.iconMode;
         iconRotation = device.iconRotation;
         iconArrowMovingColor = device.iconArrowMovingColor;
