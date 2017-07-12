@@ -47,6 +47,10 @@ public class Position implements IsSerializable, Cloneable {
 
     public Position() {
     }
+    
+    public Position(long id) {
+        this.id = id;
+    }
 
     public Position(Position position) {
         id = position.id;

@@ -98,6 +98,6 @@ public class DeviceIcon implements IsSerializable {
     }
 
     private String URL(Picture picture) {
-        return picture == null ? "" : (Picture.URL_PREFIX + picture.getId());
+        return picture == null ? "" : picture.getUrl();
     }
 }

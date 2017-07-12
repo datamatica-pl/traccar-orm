@@ -95,6 +95,10 @@ public class Picture implements IsSerializable {
     public void setMimeType(String mimeType) {
         this.mimeType = mimeType;
     }
+    
+    public String getUrl() {
+        return Picture.URL_PREFIX + id;
+    }
 
     @Override
     public boolean equals(Object o) {

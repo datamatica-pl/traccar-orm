@@ -112,7 +112,10 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
             }
         }
         group = device.group == null ? null : new Group(device.group.getId()).copyFrom(device.group);
+        deviceModelId = device.deviceModelId;
 
+        iconId = device.iconId;
+        customIconId = device.customIconId;
         iconMode = device.iconMode;
         iconRotation = device.iconRotation;
         iconArrowMovingColor = device.iconArrowMovingColor;
@@ -780,6 +783,11 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         return battery;
     }
     
+    @JsonIgnore
+    public void setBatteryLevel(Integer level) {
+        this.battery = level;
+    }
+    
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     @JsonIgnore
     private Date battTime;
@@ -787,6 +795,11 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     @JsonIgnore
     public Date getBatteryTime() {
         return battTime;
+    }
+    
+    @JsonIgnore
+    public void setBatteryTime(Date time) {
+        this.battTime = time;
     }
     
     @JsonIgnore
