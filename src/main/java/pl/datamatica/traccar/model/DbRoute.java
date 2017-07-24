@@ -24,14 +24,12 @@ import com.vividsolutions.jts.geom.LineString;
 import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import org.hibernate.annotations.Type;
 import pl.datamatica.traccar.model.GeoFence.LonLat;
 
 @Entity
 @Table(name="routes")
 public class DbRoute extends Route {
     @GwtTransient
-    @Type(type="org.hibernate.spatial.GeometryType")
     private LineString geom;
     
     @GwtTransient
