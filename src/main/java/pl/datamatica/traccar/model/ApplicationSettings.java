@@ -47,6 +47,10 @@ public class ApplicationSettings implements IsSerializable {
     @Column(nullable = true)
     private int notificationExpirationPeriod;
 
+    public long getId() {
+        return id;
+    }
+    
     public void setRegistrationEnabled(boolean registrationEnabled) {
         this.registrationEnabled = registrationEnabled;
     }
