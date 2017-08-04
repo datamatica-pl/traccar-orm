@@ -20,6 +20,7 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 public enum CommandType implements IsSerializable {
     positionSingle,
     positionPeriodic,
+    positionPeriodicAlt,
     positionStop,
     engineStop,
     engineResume,
