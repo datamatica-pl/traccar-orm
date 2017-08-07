@@ -185,20 +185,13 @@ public class User implements IsSerializable, Cloneable {
     @JsonIgnore
     @Transient
     private boolean premium;
-    
-    @PostLoad
-    @GwtIncompatible
-    void postLoad() {
-        premium = false;
-        for(Device d : getDevices())
-            if(d.isValid(new Date())) {
-                premium = true;
-                break;
-            }
-    }
-    
+        
     public boolean isPremium() {
         return premium;
+    }
+    
+    public void setPremium(boolean premium) {
+        this.premium = premium;
     }
 
     // Hibernate bug HHH-8783: (http://hibernate.atlassian.net/browse/HHH-8783)
