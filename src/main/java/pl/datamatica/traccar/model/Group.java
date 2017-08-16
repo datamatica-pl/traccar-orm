@@ -18,6 +18,7 @@ package pl.datamatica.traccar.model;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gwt.user.client.rpc.GwtTransient;
 import com.google.gwt.user.client.rpc.IsSerializable;
+import java.util.HashSet;
 
 import javax.persistence.*;
 import java.util.Set;
@@ -43,6 +44,15 @@ public class Group implements IsSerializable, GroupedDevice {
     public Group(String name) {
         this();
         this.name = name;
+    }
+    
+    public Group(Group other) {
+        this.id = other.id;
+        this.name = other.name;
+        this.description = other.description;
+        this.owned = other.owned;
+        this.shared = other.shared;
+        this.users = new HashSet<>(other.users);
     }
 
     @Id
