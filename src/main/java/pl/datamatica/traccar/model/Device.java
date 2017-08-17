@@ -135,6 +135,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         validTo = device.validTo;
         color = device.color;
         users = new HashSet<>(device.users);
+        owner = device.owner;
     }
 
     @Id
