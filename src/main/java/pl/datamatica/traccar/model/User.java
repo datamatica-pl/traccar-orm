@@ -404,6 +404,9 @@ public class User implements IsSerializable, Cloneable {
     @JoinColumn(foreignKey = @ForeignKey(name = "users_fkey_managedby_id"))
     @JsonIgnore
     private User managedBy;
+    
+    @Transient
+    private Long managedById;
 
     public User getManagedBy() {
         return managedBy;
@@ -411,6 +414,14 @@ public class User implements IsSerializable, Cloneable {
 
     public void setManagedBy(User managedBy) {
         this.managedBy = managedBy;
+    }
+    
+    public Long getManagedById() {
+        return managedById;
+    }
+    
+    public void setManagedById(Long id) {
+        this.managedById = id;
     }
 
     @GwtTransient
