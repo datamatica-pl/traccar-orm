@@ -16,7 +16,6 @@
 package pl.datamatica.traccar.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.google.gwt.core.shared.GwtIncompatible;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -672,6 +671,18 @@ public class User implements IsSerializable, Cloneable {
 
     public void setSessions(List<UserSession> sessions) {
         this.sessions = new ArrayList<>(sessions);
+    }
+    
+    @ManyToOne
+    @GwtTransient
+    private UserGroup userGroup;
+    
+    public UserGroup getUserGroup() {
+        return userGroup;
+    }
+    
+    public void setUserGroup(UserGroup g) {
+        this.userGroup = g;
     }
     
     @JsonIgnore

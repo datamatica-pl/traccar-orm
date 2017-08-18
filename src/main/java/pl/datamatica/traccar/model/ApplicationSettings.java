@@ -1,6 +1,7 @@
 package pl.datamatica.traccar.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.google.gwt.user.client.rpc.GwtTransient;
 import com.google.gwt.user.client.rpc.IsSerializable;
 
 import javax.persistence.*;
@@ -151,6 +152,18 @@ public class ApplicationSettings implements IsSerializable {
 
     public void setAllowCommandsOnlyForAdmins(boolean allowCommandsOnlyForAdmins) {
         this.allowCommandsOnlyForAdmins = allowCommandsOnlyForAdmins;
+    }
+    
+    @GwtTransient
+    @ManyToOne
+    private UserGroup defaultGroup;
+    
+    public UserGroup getDefaultGroup() {
+        return defaultGroup;
+    }
+    
+    public void setDefaultGroup(UserGroup group) {
+        defaultGroup = group;
     }
 
     @Override
