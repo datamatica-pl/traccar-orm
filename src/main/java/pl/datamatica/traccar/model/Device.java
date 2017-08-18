@@ -35,6 +35,7 @@ import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.SQLDelete;
 
 import com.google.gwt.user.datepicker.client.CalendarUtil;
+import java.util.HashSet;
 
 @Entity
 @Table(name = "devices",
@@ -133,6 +134,8 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         historyLength = device.historyLength;
         validTo = device.validTo;
         color = device.color;
+        users = new HashSet<>(device.users);
+        owner = device.owner;
     }
 
     @Id
