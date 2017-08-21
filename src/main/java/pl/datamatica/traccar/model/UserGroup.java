@@ -17,6 +17,7 @@
 package pl.datamatica.traccar.model;
 
 import java.util.Set;
+import javax.persistence.CollectionTable;
 import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -24,12 +25,14 @@ import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Table;
 
 /**
  *
  * @author ŁŁ
  */
 @Entity
+@Table(name="usergroups")
 public class UserGroup {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -55,6 +58,7 @@ public class UserGroup {
     
     @ElementCollection
     @Enumerated(EnumType.STRING)
+    @CollectionTable(name="usergroups_permissions")
     private Set<UserPermission> permissions;
     
     public Set<UserPermission> getPermissions() {
