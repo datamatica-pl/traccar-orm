@@ -685,6 +685,12 @@ public class User implements IsSerializable, Cloneable {
         this.userGroup = g;
     }
     
+    public boolean hasPermission(UserPermission up) {
+        if (getUserGroup() == null || getUserGroup().getPermissions() == null)
+            return false;
+        return getUserGroup().getPermissions().contains(up);
+    }
+    
     @JsonIgnore
     public boolean acceptsNotification(DeviceEventType type) {
         if(blocked)
