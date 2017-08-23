@@ -24,7 +24,7 @@ import java.util.Set;
  * @author ŁŁ
  */
 public enum UserPermission {
-    DEVICE_READ, DEVICE_EDIT, DEVICE_SHARE,
+    DEVICE_EDIT, DEVICE_SHARE,
     GEOFENCE_READ, GEOFENCE_EDIT, GEOFENCE_SHARE,
     TRACK_READ, TRACK_EDIT, TRACK_SHARE,
     HISTORY_READ, COMMAND_TCP, COMMAND_SMS,
@@ -42,7 +42,7 @@ public enum UserPermission {
     }
 
     public static Set<UserPermission> getUsersPermissions() {
-        return EnumSet.of(DEVICE_READ, DEVICE_EDIT, GEOFENCE_READ,
+        return EnumSet.of(DEVICE_EDIT, GEOFENCE_READ,
                 GEOFENCE_EDIT, GEOFENCE_SHARE, HISTORY_READ, 
                 COMMAND_TCP, COMMAND_SMS, DEVICE_STATS, ALERTS_READ,
                 NOTIFICATIONS);
