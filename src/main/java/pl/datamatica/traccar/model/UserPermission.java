@@ -37,7 +37,7 @@ public enum UserPermission {
     
     public static Set<UserPermission> getAdminsPermissions() {
         return EnumSet.of(NOTIFICATIONS, ALL_DEVICES, ALL_GEOFENCES,
-                ALL_TRACKS, USER_MANAGEMENT, GROUP_MANAGEMENT,
+                ALL_TRACKS, ALL_USERS, USER_MANAGEMENT, GROUP_MANAGEMENT,
                 LOGS_ACCESS, AUDIT_ACCESS, SERVER_MANAGEMENT);
     }
 
