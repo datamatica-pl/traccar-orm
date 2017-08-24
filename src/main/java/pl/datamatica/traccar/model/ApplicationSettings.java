@@ -164,6 +164,19 @@ public class ApplicationSettings implements IsSerializable {
     
     public void setDefaultGroup(UserGroup group) {
         defaultGroup = group;
+        if(group != null)
+            defaultGroupId = group.getId();
+    }
+    
+    @Transient
+    private long defaultGroupId;
+    
+    public long getDefaultGroupId() {
+        return defaultGroupId;
+    }
+    
+    public void setDefaultGroupId(long id) {
+        this.defaultGroupId = id;
     }
 
     @Override
