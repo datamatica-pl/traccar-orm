@@ -439,6 +439,8 @@ public class User implements IsSerializable, Cloneable {
     @JsonIgnore
     public Set<User> getAllManagedUsers() {
         Set<User> result = new HashSet<>();
+        if (getManagedUsers() == null)
+            return result;
         result.addAll(getManagedUsers());
         for (User managedUser : getManagedUsers()) {
             if (managedUser.getManager()) {
