@@ -112,6 +112,9 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
                 sensors.add(new Sensor(sensor));
             }
         }
+        if (device.latestPosition != null)
+            latestPosition = new Position(device.latestPosition);
+        
         group = device.group == null ? null : new Group(device.group.getId()).copyFrom(device.group);
         deviceModelId = device.deviceModelId;
 
