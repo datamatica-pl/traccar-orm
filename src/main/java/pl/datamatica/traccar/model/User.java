@@ -675,6 +675,17 @@ public class User implements IsSerializable, Cloneable {
         this.sessions = new ArrayList<>(sessions);
     }
     
+    @Transient
+    private String userGroupName;
+    
+    public String getUserGroupName() {
+        return userGroupName;
+    }
+    
+    public void setUserGroupName(String name) {
+        this.userGroupName = name;
+    }
+    
     @ManyToOne
     @GwtTransient
     private UserGroup userGroup;
