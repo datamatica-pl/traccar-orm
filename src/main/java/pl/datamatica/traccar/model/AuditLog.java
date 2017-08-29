@@ -127,7 +127,7 @@ public class AuditLog implements Serializable {
         this.permissionName = permissionName;
     }
     
-    static class Builder {
+    public static class Builder {
         private Date time;
         private String agentLogin;
         private String targetUserLogin;
@@ -137,6 +137,10 @@ public class AuditLog implements Serializable {
         private String permissionName;
         private AuditLogType type;
 
+        public Builder() {
+            time = new Date();
+        }
+        
         public Builder time(Date time) {
             this.time = time;
             return this;
