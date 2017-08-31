@@ -78,10 +78,10 @@ public enum UserPermission {
         required.put(UserPermission.COMMAND_CUSTOM, EnumSet.of(UserPermission.COMMAND_TCP));
         required.put(UserPermission.DEVICE_STATS, EnumSet.of(UserPermission.HISTORY_READ));
         required.put(UserPermission.REPORTS, EnumSet.of(UserPermission.HISTORY_READ));
-        required.put(UserPermission.ALERTS_READ, EnumSet.of(UserPermission.HISTORY_READ));
-        required.put(UserPermission.NOTIFICATIONS, EnumSet.of(UserPermission.HISTORY_READ, UserPermission.ALERTS_READ));
+        required.put(UserPermission.ALERTS_READ, EnumSet.of(UserPermission.HISTORY_READ, UserPermission.GEOFENCE_READ));
+        required.put(UserPermission.NOTIFICATIONS, EnumSet.of(UserPermission.HISTORY_READ, UserPermission.GEOFENCE_READ, UserPermission.ALERTS_READ));
         required.put(UserPermission.DEVICE_GROUP_MANAGEMENT, EnumSet.of(UserPermission.DEVICE_EDIT, UserPermission.DEVICE_SHARE, UserPermission.USER_MANAGEMENT));
-        required.put(UserPermission.ALL_DEVICES, EnumSet.of(UserPermission.DEVICE_EDIT, UserPermission.DEVICE_SHARE, UserPermission.HISTORY_READ, UserPermission.COMMAND_TCP, UserPermission.COMMAND_SMS, UserPermission.DEVICE_STATS, UserPermission.REPORTS, UserPermission.ALERTS_READ, UserPermission.DEVICE_GROUP_MANAGEMENT, UserPermission.USER_MANAGEMENT));
+        required.put(UserPermission.ALL_DEVICES, EnumSet.of(UserPermission.DEVICE_EDIT, UserPermission.DEVICE_SHARE, UserPermission.GEOFENCE_READ, UserPermission.HISTORY_READ, UserPermission.COMMAND_TCP, UserPermission.COMMAND_SMS, UserPermission.DEVICE_STATS, UserPermission.REPORTS, UserPermission.ALERTS_READ, UserPermission.DEVICE_GROUP_MANAGEMENT, UserPermission.USER_MANAGEMENT));
         required.put(UserPermission.ALL_GEOFENCES, EnumSet.of(UserPermission.GEOFENCE_READ, UserPermission.GEOFENCE_EDIT, UserPermission.GEOFENCE_SHARE, UserPermission.USER_MANAGEMENT));
         required.put(UserPermission.ALL_TRACKS, EnumSet.of(UserPermission.GEOFENCE_READ, UserPermission.GEOFENCE_EDIT, UserPermission.TRACK_READ, UserPermission.TRACK_EDIT, UserPermission.TRACK_SHARE, UserPermission.USER_MANAGEMENT));
         required.put(UserPermission.USER_MANAGEMENT, Collections.EMPTY_SET);
