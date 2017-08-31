@@ -24,6 +24,7 @@ import javax.persistence.*;
 
 import com.google.gwt.user.client.rpc.*;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
@@ -173,12 +174,8 @@ public class User implements IsSerializable, Cloneable {
         this.manager = manager;
     }
     
-    public boolean isAdminOrManager() {
-        return getAdmin() || getManager();
-    }
-    
     public Boolean isImeiManager() {
-        return login.equals("imei_manager");
+        return hasPermission(UserPermission.RESOURCE_MANAGEMENT);
     }
     
     @JsonIgnore
@@ -220,7 +217,7 @@ public class User implements IsSerializable, Cloneable {
     public Set<Device> getAllAvailableDevices() {
         Set<Device> devices = new HashSet<>();
         devices.addAll(getDevices());
-        if (getManager()) {
+        if (hasPermission(UserPermission.USER_MANAGEMENT)) {
             for (User managedUser : getManagedUsers()) {
                 devices.addAll(managedUser.getAllAvailableDevices());
             }
@@ -251,28 +248,20 @@ public class User implements IsSerializable, Cloneable {
     }
 
     public boolean hasAccessTo(GeoFence geoFence) {
-        if (getAdmin()) {
+        if (hasPermission(UserPermission.ALL_GEOFENCES))
             return true;
-        }
+        
+        if (!hasPermission(UserPermission.GEOFENCE_READ))
+            return false;
 
-        if (hasAccessOnLowerLevelTo(geoFence)) {
-            return true;
-        }
-        User managedBy = getManagedBy();
-        while (managedBy != null) {
-            if (managedBy.getGeoFences().contains(geoFence)) {
-                return true;
-            }
-            managedBy = managedBy.getManagedBy();
-        }
-        return false;
+        return hasAccessOnLowerLevelTo(geoFence);
     }
 
     private boolean hasAccessOnLowerLevelTo(GeoFence geoFence) {
-        if (getGeoFences().contains(geoFence)) {
+        if (getGeoFences().contains(geoFence)) 
             return true;
-        }
-        if (getManager()) {
+        
+        if (hasPermission(UserPermission.USER_MANAGEMENT)) {
             for (User user : getManagedUsers()) {
                 if (user.hasAccessOnLowerLevelTo(geoFence)) {
                     return true;
@@ -283,9 +272,8 @@ public class User implements IsSerializable, Cloneable {
     }
 
     public boolean hasAccessTo(Device device) {
-        if (getAdmin()) {
+        if (hasPermission(UserPermission.ALL_DEVICES)) 
             return true;
-        }
 
         return getAllAvailableDevices().contains(device);
     }
@@ -310,8 +298,11 @@ public class User implements IsSerializable, Cloneable {
     @JsonIgnore
     public Set<Report> getAllAvailableReports() {
         Set<Report> reports = new HashSet<>();
+        if (!hasPermission(UserPermission.REPORTS))
+            return reports;
+        
         reports.addAll(getReports());
-        if (getManager()) {
+        if (hasPermission(UserPermission.USER_MANAGEMENT)) {
             for (User managedUser : getManagedUsers()) {
                 reports.addAll(managedUser.getAllAvailableReports());
             }
@@ -339,44 +330,31 @@ public class User implements IsSerializable, Cloneable {
     @JsonIgnore
     public Set<Group> getAllAvailableGroups() {
         Set<Group> result = new HashSet<>();
+        if (!hasPermission(UserPermission.DEVICE_GROUP_MANAGEMENT))
+            return result;
+            
         result.addAll(getGroups());
-        if (getManager()) {
+        if (hasPermission(UserPermission.USER_MANAGEMENT)) {
             for (User user : getManagedUsers()) {
                 result.addAll(user.getAllAvailableGroups());
             }
         }
-        User managedBy = getManagedBy();
-        while (managedBy != null) {
-            result.addAll(managedBy.getGroups());
-            managedBy = managedBy.getManagedBy();
-        }
-
+        
         return result;
     }
 
     public boolean hasAccessTo(Group group) {
-        if (getAdmin()) {
+        if (hasPermission(UserPermission.ALL_DEVICES)) 
             return true;
-        }
 
-        if (hasAccessOnLowerLevelTo(group)) {
-            return true;
-        }
-        User managedBy = getManagedBy();
-        while (managedBy != null) {
-            if (managedBy.getGroups().contains(group)) {
-                return true;
-            }
-            managedBy = managedBy.getManagedBy();
-        }
-        return false;
+        return hasAccessOnLowerLevelTo(group);
     }
 
     private boolean hasAccessOnLowerLevelTo(Group group) {
-        if (getGroups().contains(group)) {
+        if (getGroups().contains(group)) 
             return true;
-        }
-        if (getManager()) {
+        
+        if (hasPermission(UserPermission.USER_MANAGEMENT)) {
             for (User user : getManagedUsers()) {
                 if (user.hasAccessOnLowerLevelTo(group)) {
                     return true;
@@ -429,6 +407,9 @@ public class User implements IsSerializable, Cloneable {
     private Set<User> managedUsers;
 
     public Set<User> getManagedUsers() {
+        if (managedUsers == null) {
+            return Collections.EMPTY_SET;
+        }
         return managedUsers;
     }
 
@@ -439,14 +420,16 @@ public class User implements IsSerializable, Cloneable {
     @JsonIgnore
     public Set<User> getAllManagedUsers() {
         Set<User> result = new HashSet<>();
-        if (getManagedUsers() == null)
+        if (!hasPermission(UserPermission.USER_MANAGEMENT) || getManagedUsers() == null)
             return result;
+        
         result.addAll(getManagedUsers());
         for (User managedUser : getManagedUsers()) {
-            if (managedUser.getManager()) {
+            if (managedUser.hasPermission(UserPermission.USER_MANAGEMENT)) {
                 result.addAll(managedUser.getAllManagedUsers());
             }
         }
+        
         return result;
     }
     
