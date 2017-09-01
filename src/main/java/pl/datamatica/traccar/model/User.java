@@ -254,21 +254,7 @@ public class User implements IsSerializable, Cloneable {
         if (!hasPermission(UserPermission.GEOFENCE_READ))
             return false;
 
-        return hasAccessOnLowerLevelTo(geoFence);
-    }
-
-    private boolean hasAccessOnLowerLevelTo(GeoFence geoFence) {
-        if (getGeoFences().contains(geoFence)) 
-            return true;
-        
-        if (hasPermission(UserPermission.USER_MANAGEMENT)) {
-            for (User user : getManagedUsers()) {
-                if (user.hasAccessOnLowerLevelTo(geoFence)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return getAllAvailableGeoFences().contains(geoFence);
     }
 
     public boolean hasAccessTo(Device device) {
@@ -347,21 +333,7 @@ public class User implements IsSerializable, Cloneable {
         if (hasPermission(UserPermission.ALL_DEVICES)) 
             return true;
 
-        return hasAccessOnLowerLevelTo(group);
-    }
-
-    private boolean hasAccessOnLowerLevelTo(Group group) {
-        if (getGroups().contains(group)) 
-            return true;
-        
-        if (hasPermission(UserPermission.USER_MANAGEMENT)) {
-            for (User user : getManagedUsers()) {
-                if (user.hasAccessOnLowerLevelTo(group)) {
-                    return true;
-                }
-            }
-        }
-        return false;
+        return getAllAvailableGroups().contains(group);
     }
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
