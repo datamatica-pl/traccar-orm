@@ -30,6 +30,7 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.OrderColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
@@ -53,6 +54,8 @@ public class Route implements IsSerializable, Cloneable {
     @OneToMany(cascade = {CascadeType.ALL})
     @OrderColumn(name="point_index")
     private List<RoutePoint> routePoints = new ArrayList<>();
+    @OneToOne(cascade= {CascadeType.ALL})
+    private GeoFence corridor;
     @ManyToOne
     @JoinColumn(nullable=false)
     @GwtTransient
@@ -70,7 +73,10 @@ public class Route implements IsSerializable, Cloneable {
         this.deadline = copy.deadline;
         this.status = copy.status;
         this.routePoints = new ArrayList<>(copy.routePoints);
+        this.corridor = copy.corridor;
         this.owner = copy.owner;
+        if(corridor != null)
+            corridor.setDevices(corridor.getTransferDevices());
     }
     
     public long getId() {
@@ -112,6 +118,14 @@ public class Route implements IsSerializable, Cloneable {
     public List<RoutePoint> getRoutePoints() {
         return routePoints;
     }
+    
+    public GeoFence getCorridor() {
+        return corridor;
+    }
+    
+    public void setCorridor(GeoFence corridor) {
+        this.corridor = corridor;
+    }
 
     public String getName() {
         return name;
@@ -143,5 +157,15 @@ public class Route implements IsSerializable, Cloneable {
         this.status = updated.status;
         this.deadline = updated.deadline;
         this.routePoints = updated.routePoints;
+        if(updated.corridor == null)
+            this.corridor = null;
+        else if(this.corridor == null) {
+            this.corridor = updated.corridor;
+            corridor.setDevices(corridor.getTransferDevices());
+        } else {
+            this.corridor.copyFrom(updated.corridor);
+            this.corridor.getDevices().clear();
+            this.corridor.getDevices().addAll(corridor.getTransferDevices());
+        }
     }
 }

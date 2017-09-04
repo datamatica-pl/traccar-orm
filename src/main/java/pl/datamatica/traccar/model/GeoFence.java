@@ -100,7 +100,7 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
 
     // will hold list of lon/lat pairs of base points for this geo-fence separated by comma
     // for example: -1.342 1.23423,33.442324 54.3454
-    @Column(length = 2048)
+    @Column(length = 100000)
     @JsonIgnore
     private String points;
 
