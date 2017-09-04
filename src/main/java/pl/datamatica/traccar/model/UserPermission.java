@@ -50,9 +50,9 @@ public enum UserPermission {
     }
 
     public static Set<UserPermission> getUsersPermissions() {
-        return EnumSet.of(DEVICE_EDIT, DEVICE_GROUP_MANAGEMENT, GEOFENCE_READ, 
-                GEOFENCE_EDIT, GEOFENCE_SHARE, HISTORY_READ, COMMAND_TCP, 
-                COMMAND_SMS, DEVICE_STATS, ALERTS_READ, 
+        return EnumSet.of(DEVICE_EDIT, DEVICE_SHARE, DEVICE_GROUP_MANAGEMENT, 
+                GEOFENCE_READ, GEOFENCE_EDIT, GEOFENCE_SHARE, HISTORY_READ, 
+                COMMAND_TCP, COMMAND_SMS, DEVICE_STATS, REPORTS, ALERTS_READ, 
                 NOTIFICATIONS, USER_MANAGEMENT, ALLOW_MOBILE);
     }
     
