@@ -272,6 +272,8 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
         if (geoFence.transferDevices != null) {
             transferDevices = new HashSet<>(geoFence.getTransferDevices());
         }
+        
+        setLastUpdate(geoFence.getLastUpdate());
         return this;
     }
     
@@ -289,6 +291,8 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
         gf.devices = new HashSet<>(this.devices);
         gf.deleted = this.deleted;
         gf.users = new HashSet<>(this.users);
+        gf.setLastUpdate(this.getLastUpdate());
+        
         return gf;
     }
 
