@@ -19,6 +19,8 @@ import com.google.gwt.user.client.rpc.IsSerializable;
 
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.util.HashMap;
+import java.util.Map;
 
 public enum PasswordHashMethod implements IsSerializable {
     PLAIN("plain") {
@@ -79,4 +81,17 @@ public enum PasswordHashMethod implements IsSerializable {
     }
 
     public abstract String doHash(String s, String salt);
+    
+    private static final Map<String, PasswordHashMethod> hashKeys;
+    static
+    {
+        hashKeys = new HashMap<>();
+        hashKeys.put("plain", PasswordHashMethod.PLAIN);
+        hashKeys.put("sha512", PasswordHashMethod.SHA512);
+        hashKeys.put("md5", PasswordHashMethod.MD5);
+    }
+    
+    public static PasswordHashMethod fromString(String method) {
+        return hashKeys.get(method);   
+    }
 }

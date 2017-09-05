@@ -185,20 +185,13 @@ public class User implements IsSerializable, Cloneable {
     @JsonIgnore
     @Transient
     private boolean premium;
-    
-    @PostLoad
-    @GwtIncompatible
-    void postLoad() {
-        premium = false;
-        for(Device d : getDevices())
-            if(d.isValid(new Date())) {
-                premium = true;
-                break;
-            }
-    }
-    
+        
     public boolean isPremium() {
         return premium;
+    }
+    
+    public void setPremium(boolean premium) {
+        this.premium = premium;
     }
 
     // Hibernate bug HHH-8783: (http://hibernate.atlassian.net/browse/HHH-8783)
@@ -411,6 +404,9 @@ public class User implements IsSerializable, Cloneable {
     @JoinColumn(foreignKey = @ForeignKey(name = "users_fkey_managedby_id"))
     @JsonIgnore
     private User managedBy;
+    
+    @Transient
+    private Long managedById;
 
     public User getManagedBy() {
         return managedBy;
@@ -418,6 +414,14 @@ public class User implements IsSerializable, Cloneable {
 
     public void setManagedBy(User managedBy) {
         this.managedBy = managedBy;
+    }
+    
+    public Long getManagedById() {
+        return managedById;
+    }
+    
+    public void setManagedById(Long id) {
+        this.managedById = id;
     }
 
     @GwtTransient
