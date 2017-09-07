@@ -15,6 +15,10 @@ public class ApplicationSettings implements IsSerializable {
     public static final short DEFAULT_NOTIFICATION_EXPIRATION_PERIOD = 12 * 60;
     public static final String DEFAULT_MATCH_SERVICE_URL = "https://router.project-osrm.org/match";
 
+    public static final short UPDATE_INTERVAL_MIN = 1000;
+    public static final short UPDATE_INTERVAL_MAX = 30000;
+
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false, unique = true)
