@@ -38,6 +38,7 @@ public class ApplicationSettings implements IsSerializable {
     @Enumerated(EnumType.STRING)
     private PasswordHashMethod defaultPasswordHash;
 
+    @Deprecated
     @Column(nullable = true)
     private boolean disallowDeviceManagementByUsers;
 
@@ -143,6 +144,7 @@ public class ApplicationSettings implements IsSerializable {
         this.matchServiceURL = matchServiceURL;
     }
 
+    @Deprecated
     @Column(nullable = true)
     private boolean allowCommandsOnlyForAdmins;
 
