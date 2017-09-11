@@ -15,6 +15,7 @@
  */
 package pl.datamatica.traccar.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gwt.core.shared.GwtIncompatible;
 import com.google.gwt.user.client.rpc.*;
@@ -692,6 +693,8 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     }
     
     @Temporal(TemporalType.DATE)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ",
+            timezone="GMT")
     private Date validTo;
     
     public Date getValidTo() {
