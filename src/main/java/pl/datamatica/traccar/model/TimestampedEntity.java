@@ -16,6 +16,7 @@
  */
 package pl.datamatica.traccar.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import java.util.Date;
 import javax.persistence.*;
 
@@ -23,6 +24,7 @@ import javax.persistence.*;
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 public abstract class TimestampedEntity {
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
+    @JsonIgnore
     private Date lastUpdate;
 
     public Date getLastUpdate() {

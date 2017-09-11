@@ -15,6 +15,7 @@
  */
 package pl.datamatica.traccar.model;
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.google.gwt.user.client.rpc.GwtTransient;
 import com.google.gwt.user.client.rpc.IsSerializable;
@@ -131,6 +132,8 @@ public class Report implements IsSerializable {
     }
 
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ",
+                timezone="GMT")
     private Date fromDate;
 
     public Date getFromDate() {
@@ -142,6 +145,8 @@ public class Report implements IsSerializable {
     }
 
     @Temporal(TemporalType.TIMESTAMP)
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd'T'HH:mm:ssZ",
+                timezone="GMT")
     private Date toDate;
 
     public Date getToDate() {
