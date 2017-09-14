@@ -32,6 +32,7 @@ public enum CommandType implements IsSerializable {
     requestPhoto,
     rebootDevice,
     movementAlarm,
+    movementAlarmOff,
     sendSms,
     setDefenseTime,
     getParams,
