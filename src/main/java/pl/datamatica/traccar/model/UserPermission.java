@@ -30,9 +30,9 @@ public enum UserPermission {
     DEVICE_EDIT, DEVICE_SHARE,
     GEOFENCE_READ, GEOFENCE_EDIT, GEOFENCE_SHARE,
     TRACK_READ, TRACK_EDIT, TRACK_SHARE,
-    HISTORY_READ, COMMAND_TCP, COMMAND_SMS, COMMAND_CUSTOM,
-    DEVICE_STATS, REPORTS, ALERTS_READ, NOTIFICATIONS,
-    DEVICE_GROUP_MANAGEMENT, 
+    HISTORY_READ, ALL_HISTORY, COMMAND_TCP, COMMAND_SMS, COMMAND_CUSTOM,
+    DEVICE_STATS, REPORTS, ALERTS_READ,
+    NOTIFICATIONS, DEVICE_GROUP_MANAGEMENT, 
     ALL_DEVICES, ALL_GEOFENCES, ALL_TRACKS, ALL_USERS,
     USER_MANAGEMENT, USER_GROUP_MANAGEMENT, RESOURCE_MANAGEMENT,
     LOGS_ACCESS, AUDIT_ACCESS, SERVER_MANAGEMENT,
@@ -73,6 +73,7 @@ public enum UserPermission {
         required.put(UserPermission.TRACK_EDIT, EnumSet.of(UserPermission.GEOFENCE_READ, UserPermission.GEOFENCE_EDIT, UserPermission.TRACK_READ));
         required.put(UserPermission.TRACK_SHARE, EnumSet.of(UserPermission.GEOFENCE_READ, UserPermission.TRACK_READ, UserPermission.GEOFENCE_SHARE));
         required.put(UserPermission.HISTORY_READ, Collections.EMPTY_SET);
+        required.put(UserPermission.ALL_HISTORY, EnumSet.of(UserPermission.HISTORY_READ));
         required.put(UserPermission.COMMAND_TCP, Collections.EMPTY_SET);
         required.put(UserPermission.COMMAND_SMS, Collections.EMPTY_SET);
         required.put(UserPermission.COMMAND_CUSTOM, EnumSet.of(UserPermission.COMMAND_TCP));
