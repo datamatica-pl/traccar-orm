@@ -31,6 +31,10 @@ public class Report implements IsSerializable {
 
     public Report() {
     }
+    
+    public Report(long id) {
+        this.id = id;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -40,7 +44,7 @@ public class Report implements IsSerializable {
     public long getId() {
         return id;
     }
-
+    
     private String name;
 
     public void setName(String name) {
