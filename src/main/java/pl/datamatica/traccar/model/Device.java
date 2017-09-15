@@ -74,7 +74,6 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         showName = true;
         showProtocol = true;
         showOdometer = true;
-        supportedCommands = new ArrayList<>();
         historyLength = DEFAULT_HISTORY_LENGTH_DAYS;
     }
 
@@ -133,7 +132,6 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         showOdometer = device.showOdometer;
         timezoneOffset = device.timezoneOffset;
         commandPassword = device.commandPassword;
-        supportedCommands = new ArrayList<>(device.supportedCommands);
         protocol = device.protocol;
         historyLength = device.historyLength;
         validTo = device.validTo;
@@ -557,21 +555,6 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     
     public void setTimezoneOffset(Integer timezoneOffset) {
         this.timezoneOffset = timezoneOffset;
-    }
-    
-    @Transient
-    private ArrayList<CommandType> supportedCommands;
-    
-    public List<CommandType> getSupportedCommands() {
-        return new ArrayList(supportedCommands);
-    }
-    
-    public void addSupportedCommand(CommandType type) {
-        supportedCommands.add(type);
-    }
-    
-    public void clearSupportedCommands() {
-        supportedCommands.clear();
     }
     
     @Transient
