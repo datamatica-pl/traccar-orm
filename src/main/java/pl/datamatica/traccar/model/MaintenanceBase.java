@@ -67,7 +67,6 @@ public abstract class MaintenanceBase implements IsSerializable {
     }
     
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(foreignKey = @ForeignKey(name = "maintenances_fkey_device_id"))
     @JsonIgnore
     protected Device device;
 
