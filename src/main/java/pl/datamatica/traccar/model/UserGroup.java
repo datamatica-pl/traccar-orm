@@ -34,6 +34,10 @@ import javax.persistence.Table;
 @Entity
 @Table(name="usergroups")
 public class UserGroup {
+    
+    public static final String USERS_GROUP_NAME = "users";
+    public static final String ADMINS_GROUP_NAME = "admins";
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
