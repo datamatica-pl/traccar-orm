@@ -292,6 +292,7 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
         gf.deleted = this.deleted;
         gf.users = new HashSet<>(this.users);
         gf.setLastUpdate(this.getLastUpdate());
+        gf.address = this.address;
         
         return gf;
     }
