@@ -56,6 +56,11 @@ public enum UserPermission {
                 NOTIFICATIONS, USER_MANAGEMENT, ALLOW_MOBILE);
     }
     
+    public static Set<UserPermission> getReadOnlyPermissions() {
+        return EnumSet.of(GEOFENCE_READ, HISTORY_READ, DEVICE_STATS, REPORTS,
+                ALERTS_READ, NOTIFICATIONS, ALLOW_MOBILE);
+    }
+    
     private static Map<UserPermission, Set<UserPermission>> required;
     private static Map<UserPermission, Set<UserPermission>> requiring;
     

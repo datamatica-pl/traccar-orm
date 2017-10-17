@@ -36,6 +36,7 @@ import javax.persistence.Table;
 public class UserGroup {
     
     public static final String USERS_GROUP_NAME = "users";
+    public static final String READONLY_GROUP_NAME = "readonly";
     public static final String ADMINS_GROUP_NAME = "admins";
     
     @Id
