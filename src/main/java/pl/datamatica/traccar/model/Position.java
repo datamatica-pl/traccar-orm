@@ -146,13 +146,11 @@ public class Position implements IsSerializable, Cloneable {
     public Double getSpeed() {
         return speed;
     }
-
-    private static final Double KilometersToNauticMilesMultiplier = 1.852;
     
     public Double getSpeedInKmh() {
-        if (speed == null) 
+        if (speed == null)
             return null;
-        return speed * KilometersToNauticMilesMultiplier;
+        return speed * SpeedUnitMultipier.KNOTS_TO_KM_MULTIPIER;
     }
     
     public void setSpeed(Double speed) {
