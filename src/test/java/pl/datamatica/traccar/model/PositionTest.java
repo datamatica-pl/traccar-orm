@@ -19,6 +19,7 @@ package pl.datamatica.traccar.model;
 
 import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.assertEquals;
 import org.junit.Test;
 
 /**
@@ -45,6 +46,13 @@ public class PositionTest {
         Position position = new Position();
         position.setValidStatus(Position.VALID_STATUS_ALARM);
         assertFalse(position.hasProperValidStatus());
+    }
+    
+    @Test
+    public void testSpeedUnitConversion() throws Exception {
+        Position position = new Position();
+        position.setSpeed(1000.00);
+        assertEquals(1852, position.getSpeedInKmh().intValue());
     }
 
 }
