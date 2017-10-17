@@ -39,22 +39,36 @@ public class UserSettings implements IsSerializable {
     }
 
     public enum SpeedUnit implements IsSerializable {
-        knots("kn", 1d, DistanceUnit.km),
-        kilometersPerHour("km/h", 1.852, DistanceUnit.km),
-        milesPerHour("mph", 1.150779, DistanceUnit.mile);
-
+        knots("kn", 1d, SpeedUnitMultipier.KNOTS_TO_KM_MULTIPIER,
+                SpeedUnitMultipier.KM_TO_KNOTS_MULTIPIER, DistanceUnit.km),
+        kilometersPerHour("km/h", SpeedUnitMultipier.KNOTS_TO_KM_MULTIPIER, 1d, 1d, DistanceUnit.km),
+        milesPerHour("mph", 1.150779, SpeedUnitMultipier.MILES_TO_KM_MULTIPIER,
+                SpeedUnitMultipier.KM_TO_MILES_MULTIPIER, DistanceUnit.mile);
+        
         final String unit;
         final double factor;
+        final double factorToKmh;
+        final double factorFromKmh;
         final DistanceUnit distanceUnit;
 
-        SpeedUnit(String unit, double factor, DistanceUnit distanceUnit) {
+        SpeedUnit(String unit, double factor, double factorToKm, double factorFromKmh, DistanceUnit distanceUnit) {
             this.unit = unit;
             this.factor = factor;
+            this.factorToKmh = factorToKm;
+            this.factorFromKmh = factorFromKmh;
             this.distanceUnit = distanceUnit;
         }
 
         public double getFactor() {
             return factor;
+        }
+        
+        public double getFactorToKmh() {
+            return factorToKmh;
+        }
+        
+        public double getFactorFromKmh() {
+            return factorFromKmh;
         }
 
         public String getUnit() {
