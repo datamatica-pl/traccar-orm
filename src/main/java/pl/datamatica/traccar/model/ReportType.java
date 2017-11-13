@@ -23,6 +23,11 @@ public enum ReportType implements IsSerializable {
         public boolean supportsMapDisplay() {
             return true;
         }
+        
+        @Override
+        public boolean isPremium() {
+            return false;
+        }
     },
     DRIVES_AND_STOPS {
         @Override
@@ -64,6 +69,11 @@ public enum ReportType implements IsSerializable {
         public boolean supportsFiltering() {
             return false;
         }
+        
+        @Override
+        public boolean isPremium() {
+            return false;
+        }
     },
     FUEL_CONSUMPTION;
 
@@ -77,5 +87,17 @@ public enum ReportType implements IsSerializable {
 
     public boolean supportsFiltering() {
         return true;
+    }
+    
+    public boolean isPremium() {
+        return true;
+    }
+    
+    
+    private static final ReportType[] freeTypes = new ReportType[] {
+        GENERAL_INFORMATION, EVENTS
+    };
+    public static ReportType[] getFreeTypes() {
+        return freeTypes;
     }
 }
