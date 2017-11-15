@@ -75,7 +75,13 @@ public enum ReportType implements IsSerializable {
             return false;
         }
     },
-    FUEL_CONSUMPTION;
+    FUEL_CONSUMPTION,
+    TRACK {
+        @Override
+        public boolean supportsMapDisplay() {
+            return true;
+        }
+    };
 
     public boolean supportsGeoFences() {
         return false;
