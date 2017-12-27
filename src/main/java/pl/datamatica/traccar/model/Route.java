@@ -197,7 +197,7 @@ public class Route implements IsSerializable, Cloneable {
         return tolerance;
     }
     
-    public void setTolerance() {
+    public void setTolerance(int tolerance) {
         this.tolerance = tolerance;
     }
     
@@ -224,6 +224,14 @@ public class Route implements IsSerializable, Cloneable {
     public void setForceLast(boolean forceLast) {
         this.forceLast = forceLast;
     }
+    
+    public Date getCancelTimestamp() {
+        return cancelTimestamp;
+    }
+    
+    public void setCancelTimestamp(Date cancelTimestamp) {
+        this.cancelTimestamp = cancelTimestamp;
+    }
 
     public void update(Route updated) {
         this.name = updated.name;
@@ -246,5 +254,7 @@ public class Route implements IsSerializable, Cloneable {
         this.cancelTimestamp = updated.cancelTimestamp;
         this.tolerance = updated.tolerance;
         this.archiveAfter = updated.archiveAfter;
+        this.forceFirst = updated.forceFirst;
+        this.forceLast = updated.forceLast;
     }
 }
