@@ -23,6 +23,8 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -38,7 +40,12 @@ import javax.persistence.Transient;
 import pl.datamatica.traccar.model.GeoFence.LonLat;
 
 @MappedSuperclass
-public class Route implements IsSerializable, Cloneable {    
+public class Route implements IsSerializable, Cloneable {
+    public static enum Status {
+        NEW, IN_PROGRESS_OK, IN_PROGRESS_LATE,
+        FINISHED_OK, FINISHED_LATE, CANCELLED
+    }
+    
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false, updatable = false, unique = true)
@@ -50,7 +57,8 @@ public class Route implements IsSerializable, Cloneable {
     private Date created;
     @Temporal(TemporalType.TIMESTAMP)
     private Date deadline;
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
     @OneToMany(cascade = {CascadeType.ALL})
     @OrderColumn(name="point_index")
     private List<RoutePoint> routePoints = new ArrayList<>();
@@ -60,10 +68,21 @@ public class Route implements IsSerializable, Cloneable {
     @JoinColumn(nullable=false)
     @GwtTransient
     private User owner;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date cancelTimestamp;
+    private boolean archive;
+    private int tolerance;
+    private int archiveAfter;
+    private boolean forceFirst;
+    private boolean forceLast;
     @Transient
     private LonLat[] linePoints;
     
-    public Route() {}
+    public Route() {
+        status = Status.NEW;
+        tolerance = 30;
+        archiveAfter = 7;
+    }
     
     public Route(Route copy) {
         this.id = copy.id;
@@ -77,6 +96,12 @@ public class Route implements IsSerializable, Cloneable {
         this.owner = copy.owner;
         if(corridor != null)
             corridor.setDevices(corridor.getTransferDevices());
+        this.archive = copy.archive;
+        this.status = copy.status;
+        this.tolerance = copy.tolerance;
+        this.archiveAfter = copy.archiveAfter;
+        this.forceFirst = copy.forceFirst;
+        this.forceLast = copy.forceLast;
     }
     
     public long getId() {
@@ -107,11 +132,11 @@ public class Route implements IsSerializable, Cloneable {
         this.deadline = deadline;
     }
 
-    public String getStatus() {
+    public Status getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(Status status) {
         this.status = status;
     }
 
@@ -150,6 +175,63 @@ public class Route implements IsSerializable, Cloneable {
     public void setLinePoints(LonLat[] ll) {
         linePoints = ll; 
     }
+    
+    public boolean isArchived() {
+        return archive;
+    }
+    
+    public void setArchived(boolean archived) {
+        this.archive = archived;
+    }
+    
+    public int getDonePointsCount() {
+        int donePointsCount = 0;
+        for(RoutePoint rp : routePoints) {
+            if(rp.getExitTime() != null)
+                ++donePointsCount;
+        }
+        return donePointsCount;
+    }
+    
+    public int getTolerance() {
+        return tolerance;
+    }
+    
+    public void setTolerance(int tolerance) {
+        this.tolerance = tolerance;
+    }
+    
+    public int getArchiveAfter() {
+        return archiveAfter;
+    }
+    
+    public void setArchiveAfter(int aa) {
+        this.archiveAfter = aa;
+    }
+    
+    public boolean isForceFirst() {
+        return forceFirst;
+    }
+    
+    public void setForceFirst(boolean forceFirst) {
+        this.forceFirst = forceFirst;
+    }
+    
+    public boolean isForceLast() {
+        return forceLast;
+    }
+    
+    public void setForceLast(boolean forceLast) {
+        this.forceLast = forceLast;
+    }
+    
+    public Date getCancelTimestamp() {
+        return cancelTimestamp;
+    }
+    
+    public void setCancelTimestamp(Date cancelTimestamp) {
+        this.cancelTimestamp = cancelTimestamp;
+    }
 
     public void update(Route updated) {
         this.name = updated.name;
@@ -165,7 +247,14 @@ public class Route implements IsSerializable, Cloneable {
         } else {
             this.corridor.copyFrom(updated.corridor);
             this.corridor.getDevices().clear();
-            this.corridor.getDevices().addAll(corridor.getTransferDevices());
+            if(corridor.getTransferDevices() != null)
+                this.corridor.getDevices().addAll(corridor.getTransferDevices());
         }
+        this.archive = updated.archive;
+        this.cancelTimestamp = updated.cancelTimestamp;
+        this.tolerance = updated.tolerance;
+        this.archiveAfter = updated.archiveAfter;
+        this.forceFirst = updated.forceFirst;
+        this.forceLast = updated.forceLast;
     }
 }
