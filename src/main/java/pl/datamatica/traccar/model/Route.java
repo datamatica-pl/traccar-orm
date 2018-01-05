@@ -187,7 +187,7 @@ public class Route implements IsSerializable, Cloneable {
     public int getDonePointsCount() {
         int donePointsCount = 0;
         for(RoutePoint rp : routePoints) {
-            if(rp.getExitTime() != null)
+            if(rp.getExitTime() != null || rp.getEnterTime() != null)
                 ++donePointsCount;
         }
         return donePointsCount;
