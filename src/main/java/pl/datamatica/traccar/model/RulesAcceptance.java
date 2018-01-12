@@ -42,8 +42,12 @@ public class RulesAcceptance {
     public RulesAcceptance() {}
     
     public RulesAcceptance(User user, RulesVersion version) {
+        this(user, version, new Date());
+    }
+    
+    public RulesAcceptance(User user, RulesVersion version, Date timestamp) {
         this.id = new RulesAcceptanceId(user, version);
-        this.timestamp = new Date();
+        this.timestamp = timestamp;
     }
     
     public User getUser() {

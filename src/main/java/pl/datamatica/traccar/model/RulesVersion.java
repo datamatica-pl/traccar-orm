@@ -19,6 +19,8 @@ package pl.datamatica.traccar.model;
 import java.util.Date;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,13 +44,16 @@ public class RulesVersion {
     private Date startDate;
     @Temporal(TemporalType.DATE)
     private Date endDate;
+    @Enumerated(EnumType.STRING)
+    private Type type;
     
     public RulesVersion(){
     }
     
-    public RulesVersion(String url, Date startDate) {
+    public RulesVersion(String url, Date startDate, Type type) {
         this.url = url;
         this.startDate = startDate;
+        this.type = type;
     }
     
     public long getId() {
@@ -69,5 +74,34 @@ public class RulesVersion {
     
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
+    }
+    
+    public Type getType() {
+        return type;
+    }
+    
+    public boolean isObligatory() {
+        return type.isObligatory();
+    }
+    
+    public enum Type {
+        TERMS_OF_USE(true, "Regulamin"), 
+        PRIVACY_POLICY(true, "Polityka prywatności"),
+        MARKETING(false, "Przetwarzanie w celach marketingowych");
+        
+        private boolean obligatory;
+        private String name;
+        private Type(boolean obligatory, String name) {
+            this.obligatory = obligatory;
+            this.name = name;
+        }
+        
+        public boolean isObligatory() {
+            return obligatory;
+        }
+        
+        public String getName() {
+            return name;
+        }
     }
 }
