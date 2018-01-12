@@ -138,6 +138,8 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         color = device.color;
         users = new HashSet<>(device.users);
         owner = device.owner;
+        ignition = device.ignition;
+        ignTime = device.ignTime;
         
         setLastUpdate(device.getLastUpdate());
     }
@@ -802,20 +804,25 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         return 3600;
     }
     
-    @JsonIgnore
     private Boolean ignition;
     
     public Boolean getIgnition() {
         return ignition;
     }
     
-    @JsonIgnore
+    public void setIgnition(Boolean ignition) {
+        this.ignition = ignition;
+    }
+    
     @Temporal(javax.persistence.TemporalType.TIMESTAMP)
     private Date ignTime;
     
-    @JsonIgnore
     public Date getIgnitionTime() {
         return ignTime;
+    }
+    
+    public void setIgnitionTime(Date ignitionTime) {
+        ignTime = ignitionTime;
     }
     
     @JsonIgnore
