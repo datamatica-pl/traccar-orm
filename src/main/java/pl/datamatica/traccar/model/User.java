@@ -661,6 +661,10 @@ public class User implements IsSerializable, Cloneable {
         return ra != null && ra.getTimestamp() != null;
     }
     
+    public boolean seenRules(RulesVersion rv) {
+        return findAcceptance(rv) != null;
+    }
+    
     public void addRulesAcceptance(RulesVersion version) {
         if(acceptsRules(version))
             return;
