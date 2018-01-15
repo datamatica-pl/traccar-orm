@@ -36,7 +36,6 @@ public class RulesAcceptance {
     @EmbeddedId
     private RulesAcceptanceId id;
     @Temporal(TemporalType.TIMESTAMP)
-    @Column(nullable=false)
     private Date timestamp;
     
     public RulesAcceptance() {}
