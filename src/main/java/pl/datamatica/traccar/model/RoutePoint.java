@@ -41,6 +41,8 @@ public class RoutePoint implements IsSerializable {
     private Date enterTime;
     @Temporal(TemporalType.TIMESTAMP)
     private Date exitTime;
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date deadline;
 
     public RoutePoint() {}
     
@@ -72,5 +74,11 @@ public class RoutePoint implements IsSerializable {
         this.exitTime = exit;
     }
     
+    public Date getDeadline() {
+        return deadline;
+    }
     
+    public void setDeadline(Date deadline) {
+        this.deadline = deadline;
+    }
 }

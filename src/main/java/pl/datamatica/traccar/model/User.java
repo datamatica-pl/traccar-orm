@@ -653,6 +653,37 @@ public class User implements IsSerializable, Cloneable {
         this.userGroup = g;
     }
     
+    @OneToMany(mappedBy="id.user", cascade=CascadeType.ALL)
+    private List<RulesAcceptance> rulesAcceptances = new ArrayList<>();
+    
+    public boolean acceptsRules(RulesVersion rv) {
+        RulesAcceptance ra = findAcceptance(rv);
+        return ra != null && ra.getTimestamp() != null;
+    }
+    
+    public boolean seenRules(RulesVersion rv) {
+        return findAcceptance(rv) != null;
+    }
+    
+    public void addRulesAcceptance(RulesVersion version) {
+        if(acceptsRules(version))
+            return;
+        rulesAcceptances.add(new RulesAcceptance(this, version));
+    }
+    
+    public void addRulesRejection(RulesVersion rv) {
+        if(findAcceptance(rv) != null)
+            return;
+        rulesAcceptances.add(new RulesAcceptance(this, rv, null));
+    }
+    
+    private RulesAcceptance findAcceptance(RulesVersion version) {
+        for(RulesAcceptance ra : rulesAcceptances)
+            if(ra.getVersion().equals(version))
+                return ra;
+        return null;
+    }
+    
     public boolean hasPermission(UserPermission up) {
         if (getUserGroup() == null || getUserGroup().getPermissions() == null)
             return false;
