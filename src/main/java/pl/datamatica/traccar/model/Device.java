@@ -121,7 +121,6 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         iconId = device.iconId;
         customIconId = device.customIconId;
         iconMode = device.iconMode;
-        iconRotation = device.iconRotation;
         iconArrowMovingColor = device.iconArrowMovingColor;
         iconArrowPausedColor = device.iconArrowPausedColor;
         iconArrowStoppedColor = device.iconArrowStoppedColor;
@@ -496,15 +495,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
 
     @Column(nullable = true)
     private boolean iconRotation;
-
-    public boolean isIconRotation() {
-        return iconRotation;
-    }
-
-    public void setIconRotation(boolean iconRotation) {
-        this.iconRotation = iconRotation;
-    }
-
+    
     @Column(nullable = true)
     private double iconArrowRadius;
 
