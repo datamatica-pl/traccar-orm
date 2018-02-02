@@ -33,6 +33,7 @@ import javax.persistence.TemporalType;
 @Table(name="rules_acceptances")
 @Entity
 public class RulesAcceptance {
+    
     @EmbeddedId
     private RulesAcceptanceId id;
     @Temporal(TemporalType.TIMESTAMP)
@@ -59,6 +60,10 @@ public class RulesAcceptance {
     
     public Date getTimestamp() {
         return timestamp;
+    }
+       
+    public void setTimestamp(Date timestamp) {
+        this.timestamp = timestamp;
     }
     
     @Embeddable
