@@ -37,6 +37,8 @@ import org.hibernate.annotations.SQLDelete;
 
 import com.google.gwt.user.datepicker.client.CalendarUtil;
 import java.util.HashSet;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "devices",
@@ -158,7 +160,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     }
     
     @GwtTransient
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "devices_fkey_position_id"))
     @JsonIgnore
     private Position latestPosition;
@@ -266,6 +268,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     //                          
     @GwtTransient
     @ManyToMany(fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SUBSELECT)
     @JoinTable(name = "users_devices",
                foreignKey = @ForeignKey(name = "users_devices_fkey_devices_id"),
                joinColumns = { @JoinColumn(name = "devices_id", table = "devices", referencedColumnName = "id") },
