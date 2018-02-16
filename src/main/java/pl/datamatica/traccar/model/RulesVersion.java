@@ -85,9 +85,9 @@ public class RulesVersion {
     }
     
     public enum Type {
-        TERMS_OF_USE(true, "Regulamin/Terms of use"), 
-        PRIVACY_POLICY(true, "Polityka prywatności/Privacy policy"),
-        MARKETING(false, "Przetwarzanie w celach marketingowych/Marketing");
+        TERMS_OF_USE(true, "Regulamin / Terms of use"), 
+        PRIVACY_POLICY(true, "Polityka prywatności / Privacy policy"),
+        MARKETING(false, "Przetwarzanie w celach marketingowych / Marketing");
         
         private boolean obligatory;
         private String name;

@@ -23,10 +23,12 @@ import java.util.List;
 import javax.persistence.*;
 
 import com.google.gwt.user.client.rpc.*;
+import org.hibernate.annotations.BatchSize;
 
 @Entity
 @Table(name = "positions",
        indexes = { @Index(name="positionsIndex", columnList="device_id,time") })
+@BatchSize(size = 100)
 public class Position implements IsSerializable, Cloneable {
 
     private static final long serialVersionUID = 1;
@@ -78,7 +80,7 @@ public class Position implements IsSerializable, Cloneable {
         return id;
     }
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "positions_fkey_device_id"))
     private Device device;
 

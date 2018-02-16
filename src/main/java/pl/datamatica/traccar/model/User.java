@@ -668,7 +668,11 @@ public class User implements IsSerializable, Cloneable {
     public void addRulesAcceptance(RulesVersion version) {
         if(acceptsRules(version))
             return;
-        rulesAcceptances.add(new RulesAcceptance(this, version));
+        RulesAcceptance ra = findAcceptance(version);
+        if (ra != null) //rules were rejected earlier
+            ra.setTimestamp(new Date());
+        else 
+            rulesAcceptances.add(new RulesAcceptance(this, version));
     }
     
     public void addRulesRejection(RulesVersion rv) {
