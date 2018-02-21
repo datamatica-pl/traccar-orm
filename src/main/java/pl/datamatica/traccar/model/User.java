@@ -29,6 +29,8 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Filter;
 
 @Entity
@@ -436,6 +438,7 @@ public class User implements IsSerializable, Cloneable {
     @JoinTable(name = "users_notifications", joinColumns = @JoinColumn(name = "user_id"))
     @Column(name = "type", nullable = false)
     @Enumerated(EnumType.STRING)
+    @Fetch(FetchMode.SUBSELECT)
     @GwtTransient
     @JsonIgnore
     private Set<DeviceEventType> notificationEvents;
@@ -642,6 +645,7 @@ public class User implements IsSerializable, Cloneable {
     }
     
     @ManyToOne
+    @Fetch(FetchMode.JOIN)
     @GwtTransient
     private UserGroup userGroup;
     
