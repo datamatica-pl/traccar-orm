@@ -162,7 +162,6 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     @GwtTransient
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "devices_fkey_position_id"))
-    @Fetch(FetchMode.JOIN)
     @JsonIgnore
     private Position latestPosition;
 

@@ -26,6 +26,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -35,6 +36,7 @@ import org.hibernate.annotations.FetchMode;
  */
 @Entity
 @Table(name="usergroups")
+@BatchSize(size = 10)
 public class UserGroup {
     
     public static final String USERS_GROUP_NAME = "users";
