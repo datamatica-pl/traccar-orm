@@ -22,10 +22,12 @@ import java.util.HashSet;
 
 import javax.persistence.*;
 import java.util.Set;
+import org.hibernate.annotations.BatchSize;
 
 @Entity
 @Table(name = "groups",
        indexes = { @Index(name = "groups_pkey", columnList = "id") })
+@BatchSize(size = 25)
 public class Group implements IsSerializable, GroupedDevice {
     public Group() {
         shared = true;
