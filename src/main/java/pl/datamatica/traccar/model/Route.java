@@ -107,6 +107,10 @@ public class Route implements IsSerializable, Cloneable {
     public long getId() {
         return id;
     }
+    
+    public void clearId() {
+        this.id = 0;
+    }
 
     public Device getDevice() {
         return device;
@@ -190,6 +194,8 @@ public class Route implements IsSerializable, Cloneable {
             if(rp.getExitTime() != null)
                 ++donePointsCount;
         }
+        if(forceLast && routePoints.get(routePoints.size()-1).getEnterTime() != null)
+            ++donePointsCount;
         return donePointsCount;
     }
     

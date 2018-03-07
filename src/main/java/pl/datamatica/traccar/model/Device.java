@@ -37,6 +37,8 @@ import org.hibernate.annotations.SQLDelete;
 
 import com.google.gwt.user.datepicker.client.CalendarUtil;
 import java.util.HashSet;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 @Entity
 @Table(name = "devices",
@@ -121,7 +123,6 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         iconId = device.iconId;
         customIconId = device.customIconId;
         iconMode = device.iconMode;
-        iconRotation = device.iconRotation;
         iconArrowMovingColor = device.iconArrowMovingColor;
         iconArrowPausedColor = device.iconArrowPausedColor;
         iconArrowStoppedColor = device.iconArrowStoppedColor;
@@ -158,7 +159,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     }
     
     @GwtTransient
-    @OneToOne(fetch = FetchType.EAGER)
+    @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(foreignKey = @ForeignKey(name = "devices_fkey_position_id"))
     @JsonIgnore
     private Position latestPosition;
@@ -266,6 +267,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     //                          
     @GwtTransient
     @ManyToMany(fetch = FetchType.LAZY)
+    @Fetch(FetchMode.SUBSELECT)
     @JoinTable(name = "users_devices",
                foreignKey = @ForeignKey(name = "users_devices_fkey_devices_id"),
                joinColumns = { @JoinColumn(name = "devices_id", table = "devices", referencedColumnName = "id") },
@@ -496,15 +498,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
 
     @Column(nullable = true)
     private boolean iconRotation;
-
-    public boolean isIconRotation() {
-        return iconRotation;
-    }
-
-    public void setIconRotation(boolean iconRotation) {
-        this.iconRotation = iconRotation;
-    }
-
+    
     @Column(nullable = true)
     private double iconArrowRadius;
 

@@ -14,6 +14,7 @@ public class ApplicationSettings implements IsSerializable {
     public static final short DEFAULT_UPDATE_INTERVAL = 15000;
     public static final short DEFAULT_NOTIFICATION_EXPIRATION_PERIOD = 12 * 60;
     public static final String DEFAULT_MATCH_SERVICE_URL = "https://router.project-osrm.org/match";
+    public static final int DEFAULT_ICON_ID = 12;
 
     public static final short UPDATE_INTERVAL_MIN = 1000;
     public static final short UPDATE_INTERVAL_MAX = 30000;
@@ -33,6 +34,7 @@ public class ApplicationSettings implements IsSerializable {
         language = "default";
         notificationExpirationPeriod = DEFAULT_NOTIFICATION_EXPIRATION_PERIOD;
         matchServiceURL = DEFAULT_MATCH_SERVICE_URL;
+        defaultIconId = DEFAULT_ICON_ID;
     }
 
     private boolean registrationEnabled;
@@ -183,6 +185,16 @@ public class ApplicationSettings implements IsSerializable {
     
     public void setDefaultGroupId(long id) {
         this.defaultGroupId = id;
+    }
+    
+    private int defaultIconId;
+    
+    public int getDefaultIconId() {
+        return defaultIconId;
+    }
+    
+    public void setDefaultIconId(int id) {
+        this.defaultIconId = id;
     }
 
     @Override

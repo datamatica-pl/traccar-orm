@@ -21,6 +21,8 @@ import com.google.gwt.user.client.rpc.*;
 
 import javax.persistence.*;
 import java.util.*;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.SQLDelete;
@@ -134,6 +136,7 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
             foreignKey = @ForeignKey(name = "users_geofences_fkey_geofence_id"),
             joinColumns = { @JoinColumn(name = "geofence_id", table = "geofences", referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "user_id", table = "users", referencedColumnName = "id") })
+    @Fetch(FetchMode.SUBSELECT)
     @JsonIgnore
     private Set<User> users;
 
@@ -151,6 +154,7 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
             foreignKey = @ForeignKey(name = "devices_geofences_fkey_geofence_id"),
             joinColumns = { @JoinColumn(name = "geofence_id", table = "geofences", referencedColumnName = "id") },
             inverseJoinColumns = { @JoinColumn(name = "device_id", table = "devices", referencedColumnName = "id") })
+    @Fetch(FetchMode.SUBSELECT)
     @JsonIgnore
     private Set<Device> devices;
 

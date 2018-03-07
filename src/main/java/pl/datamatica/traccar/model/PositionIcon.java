@@ -27,6 +27,7 @@ public class PositionIcon {
     final boolean arrow;
 
     private boolean name;
+    final boolean canRotate;
 
     public PositionIcon(boolean arrow,
                         String url,
@@ -34,7 +35,8 @@ public class PositionIcon {
                         int height,
                         String selectedURL,
                         int selectedWidth,
-                        int selectedHeight) {
+                        int selectedHeight,
+                        boolean canRotate) {
         URL = url;
         this.width = width;
         this.height = height;
@@ -42,11 +44,13 @@ public class PositionIcon {
         this.selectedWidth = selectedWidth;
         this.selectedHeight = selectedHeight;
         this.arrow = arrow;
+        this.canRotate = canRotate;
     }
 
     public PositionIcon(boolean arrow, PositionIconType iconType) {
         this(arrow, iconType.getURL(true), iconType.getWidth(), iconType.getHeight(),
-             iconType.getURL(false), iconType.getWidth(), iconType.getHeight());
+             iconType.getURL(false), iconType.getWidth(), iconType.getHeight(),
+             arrow);
     }
 
     public String getURL() {
@@ -84,5 +88,9 @@ public class PositionIcon {
     public PositionIcon setName(boolean name) {
         this.name = name;
         return this;
+    }
+    
+    public boolean canRotate() {
+        return canRotate;
     }
 }
