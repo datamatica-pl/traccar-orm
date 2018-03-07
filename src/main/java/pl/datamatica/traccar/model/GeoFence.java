@@ -199,7 +199,18 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
     public void setAddress(String address) {
         this.address = address;
     }
+    
+    @Column(nullable = false, columnDefinition="boolean default false")
+    private boolean routeOnly = false;
+    
+    public boolean isRouteOnly() {
+        return routeOnly;
+    }
 
+    public void setRouteOnly(boolean routeOnly) {
+        this.routeOnly = routeOnly;
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -297,6 +308,7 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
         gf.users = new HashSet<>(this.users);
         gf.setLastUpdate(this.getLastUpdate());
         gf.address = this.address;
+        gf.routeOnly = this.routeOnly;
         
         return gf;
     }
