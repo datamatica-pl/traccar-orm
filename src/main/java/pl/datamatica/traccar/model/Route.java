@@ -76,12 +76,19 @@ public class Route implements IsSerializable, Cloneable {
     private boolean forceFirst;
     private boolean forceLast;
     @Transient
-    private LonLat[] linePoints;
+    private String linePoints;
     
     public Route() {
         status = Status.NEW;
         tolerance = 30;
         archiveAfter = 7;
+    }
+    
+    public Route(long id, Date created, Status status, GeoFence corridor) {
+        this.id = id;
+        this.created = created;
+        this.status = status;
+        this.corridor = corridor;
     }
     
     public Route(Route copy) {
@@ -172,12 +179,12 @@ public class Route implements IsSerializable, Cloneable {
         this.owner = owner;
     }
     
-    public LonLat[] getLinePoints() {
+    public String getLinePoints() {
         return linePoints;
     }
     
-    public void setLinePoints(LonLat[] ll) {
-        linePoints = ll; 
+    public void setLinePoints(String ll) {
+        linePoints = ll;
     }
     
     public boolean isArchived() {
@@ -262,5 +269,6 @@ public class Route implements IsSerializable, Cloneable {
         this.archiveAfter = updated.archiveAfter;
         this.forceFirst = updated.forceFirst;
         this.forceLast = updated.forceLast;
+        this.linePoints = updated.linePoints;
     }
 }

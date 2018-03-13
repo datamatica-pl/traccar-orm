@@ -47,29 +47,10 @@ public class DbRoute extends Route {
     public LineString getLineString() {
         return geom;
     }
-
-    @Override
-    public void update(Route updated) {
+    
+    public void update(Route updated, Coordinate[] coords) {
         super.update(updated);
-        LonLat[] linePoints = updated.getLinePoints();
-        Coordinate[] coords = new Coordinate[linePoints.length];
-        for(int i=0;i<linePoints.length;++i)
-            coords[i] = new Coordinate(linePoints[i].lon, linePoints[i].lat);
         CoordinateSequence cs = new CoordinateArraySequence(coords);
         geom = new LineString(cs, geomFactory);
-    }
-    
-    public Route toRoute() {
-        Route copy = new Route(this);
-        if(geom == null) {
-            copy.setLinePoints(new LonLat[0]);
-            return copy;
-        }
-        CoordinateSequence coords = geom.getCoordinateSequence();
-        LonLat[] pts = new LonLat[coords.size()];
-        for (int i=0;i<coords.size();++i)
-            pts[i] = new LonLat(coords.getX(i), coords.getY(i));
-        copy.setLinePoints(pts);
-        return copy;
     }
 }
