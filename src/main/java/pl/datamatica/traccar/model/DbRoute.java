@@ -16,41 +16,17 @@
  */
 package pl.datamatica.traccar.model;
 
-import com.google.gwt.user.client.rpc.GwtTransient;
 import com.vividsolutions.jts.geom.Coordinate;
-import com.vividsolutions.jts.geom.CoordinateSequence;
-import com.vividsolutions.jts.geom.GeometryFactory;
-import com.vividsolutions.jts.geom.LineString;
-import com.vividsolutions.jts.geom.impl.CoordinateArraySequence;
 import javax.persistence.Entity;
 import javax.persistence.Table;
-import org.hibernate.annotations.Type;
-import pl.datamatica.traccar.model.GeoFence.LonLat;
 
 @Entity
 @Table(name="routes")
-public class DbRoute extends Route {
-    @GwtTransient
-    @Type(type="org.hibernate.spatial.GeometryType")
-    private LineString geom;
-    
-    @GwtTransient
-    private static final GeometryFactory geomFactory = new GeometryFactory();
-    
+public class DbRoute extends Route {    
     public DbRoute() {}
     
     public DbRoute(Route r) {
         super(r);
         update(r);
-    }
-    
-    public LineString getLineString() {
-        return geom;
-    }
-    
-    public void update(Route updated, Coordinate[] coords) {
-        super.update(updated);
-        CoordinateSequence cs = new CoordinateArraySequence(coords);
-        geom = new LineString(cs, geomFactory);
     }
 }

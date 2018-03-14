@@ -36,8 +36,6 @@ import javax.persistence.OneToOne;
 import javax.persistence.OrderColumn;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-import pl.datamatica.traccar.model.GeoFence.LonLat;
 
 @MappedSuperclass
 public class Route implements IsSerializable, Cloneable {
@@ -75,7 +73,7 @@ public class Route implements IsSerializable, Cloneable {
     private int archiveAfter;
     private boolean forceFirst;
     private boolean forceLast;
-    @Transient
+    @Column(length=10000)
     private String linePoints;
     
     public Route() {
@@ -109,6 +107,7 @@ public class Route implements IsSerializable, Cloneable {
         this.archiveAfter = copy.archiveAfter;
         this.forceFirst = copy.forceFirst;
         this.forceLast = copy.forceLast;
+        this.linePoints = copy.linePoints;
     }
     
     public long getId() {
