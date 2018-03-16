@@ -54,6 +54,12 @@ public class RoutePoint implements IsSerializable {
     public long getId() {
         return id;
     }
+    
+    public void setId(long id) {
+        if(this.id != 0)
+            throw new IllegalStateException();
+        this.id = id;
+    }
 
     public GeoFence getGeofence() {
         return geofence;

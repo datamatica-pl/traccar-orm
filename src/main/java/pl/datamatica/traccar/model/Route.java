@@ -117,6 +117,12 @@ public class Route implements IsSerializable, Cloneable {
     public void clearId() {
         this.id = 0;
     }
+    
+    public void setId(long id) {
+        if(this.id != 0)
+            throw new IllegalStateException();
+        this.id = id;
+    }
 
     public Device getDevice() {
         return device;
