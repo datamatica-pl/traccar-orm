@@ -46,8 +46,19 @@ public class RoutePoint implements IsSerializable {
 
     public RoutePoint() {}
     
+    public RoutePoint(long id, GeoFence geofence) {
+        this.id = id;
+        this.geofence = geofence;
+    }
+    
     public long getId() {
         return id;
+    }
+    
+    public void setId(long id) {
+        if(this.id != 0)
+            throw new IllegalStateException();
+        this.id = id;
     }
 
     public GeoFence getGeofence() {

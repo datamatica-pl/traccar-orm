@@ -23,6 +23,7 @@ import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
@@ -30,16 +31,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MappedSuperclass;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderColumn;
+import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.TemporalType;
-import javax.persistence.Transient;
-import pl.datamatica.traccar.model.GeoFence.LonLat;
 
-@MappedSuperclass
+@Entity
+@Table(name="routes")
 public class Route implements IsSerializable, Cloneable {
     public static enum Status {
         NEW, IN_PROGRESS_OK, IN_PROGRESS_LATE,
@@ -75,13 +75,20 @@ public class Route implements IsSerializable, Cloneable {
     private int archiveAfter;
     private boolean forceFirst;
     private boolean forceLast;
-    @Transient
-    private LonLat[] linePoints;
+    @Column(length=10000)
+    private String linePoints;
     
     public Route() {
         status = Status.NEW;
         tolerance = 30;
         archiveAfter = 7;
+    }
+    
+    public Route(long id, Date created, Status status, GeoFence corridor) {
+        this.id = id;
+        this.created = created;
+        this.status = status;
+        this.corridor = corridor;
     }
     
     public Route(Route copy) {
@@ -102,6 +109,7 @@ public class Route implements IsSerializable, Cloneable {
         this.archiveAfter = copy.archiveAfter;
         this.forceFirst = copy.forceFirst;
         this.forceLast = copy.forceLast;
+        this.linePoints = copy.linePoints;
     }
     
     public long getId() {
@@ -110,6 +118,12 @@ public class Route implements IsSerializable, Cloneable {
     
     public void clearId() {
         this.id = 0;
+    }
+    
+    public void setId(long id) {
+        if(this.id != 0)
+            throw new IllegalStateException();
+        this.id = id;
     }
 
     public Device getDevice() {
@@ -172,12 +186,12 @@ public class Route implements IsSerializable, Cloneable {
         this.owner = owner;
     }
     
-    public LonLat[] getLinePoints() {
+    public String getLinePoints() {
         return linePoints;
     }
     
-    public void setLinePoints(LonLat[] ll) {
-        linePoints = ll; 
+    public void setLinePoints(String ll) {
+        linePoints = ll;
     }
     
     public boolean isArchived() {
@@ -262,5 +276,6 @@ public class Route implements IsSerializable, Cloneable {
         this.archiveAfter = updated.archiveAfter;
         this.forceFirst = updated.forceFirst;
         this.forceLast = updated.forceLast;
+        this.linePoints = updated.linePoints;
     }
 }
