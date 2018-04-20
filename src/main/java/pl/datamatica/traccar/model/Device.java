@@ -831,7 +831,27 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     public Boolean isAutoArmed() {
         return autoArm;
     }
+    
+    private double fuelLevel;
+    
+    public double getFuelLevel() {
+        return fuelLevel;
+    }
+    
+    public void setFuelLevel(double lvl) {
+        this.fuelLevel = lvl;
+    }
+    
+    private double fuelUsed;
+    
+    public double getFuelUsed() {
+        return fuelUsed;
+    }
 
+    public void setFuelUsed(double used) {
+        this.fuelUsed = used;
+    }
+    
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
