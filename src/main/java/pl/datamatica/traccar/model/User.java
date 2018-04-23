@@ -692,6 +692,21 @@ public class User implements IsSerializable, Cloneable {
         return null;
     }
     
+    @Column(columnDefinition="boolean default false")
+    private boolean wasBleUser;
+    
+    public void setWasBleUser(boolean wasBleUser) {
+        this.wasBleUser = wasBleUser;
+    }
+    
+    @OneToMany(mappedBy="owner", cascade=CascadeType.ALL)
+    private List<BleDevice> bleDevices = new ArrayList<>();
+    
+    public void updateBleDevices(List<BleDevice> update) {
+        bleDevices.clear();
+        bleDevices.addAll(update);
+    }
+    
     public boolean hasPermission(UserPermission up) {
         if (getUserGroup() == null || getUserGroup().getPermissions() == null)
             return false;
