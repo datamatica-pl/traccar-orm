@@ -258,6 +258,26 @@ public class Position implements IsSerializable, Cloneable {
         this.validStatus = validStatus;
     }
     
+    private Double fuelLevel;
+    
+    public Double getFuelLevel() {
+        return fuelLevel;
+    }
+    
+    public void setFuelLevel(Double val) {
+        this.fuelLevel = val;
+    }
+    
+    private Double fuelUsed;
+    
+    public Double getFuelUsed() {
+        return fuelUsed;
+    }
+    
+    public void setFuelUsed(double value) {
+        this.fuelUsed = value;
+    }
+    
     @GwtTransient
     @JsonIgnore
     private transient PositionIcon icon;
