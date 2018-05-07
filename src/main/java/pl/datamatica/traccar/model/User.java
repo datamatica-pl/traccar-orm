@@ -633,6 +633,16 @@ public class User implements IsSerializable, Cloneable {
         this.sessions = new ArrayList<>(sessions);
     }
     
+    private Date lastRequestTime;
+    
+    public Date getLastRequestTime() {
+        return lastRequestTime;
+    }
+    
+    public void setLastRequestTime(Date date) {
+        this.lastRequestTime = date;
+    }
+    
     @Transient
     private String userGroupName;
     
