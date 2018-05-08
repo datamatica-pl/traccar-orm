@@ -36,7 +36,7 @@ public enum UserPermission {
     ALL_DEVICES, ALL_GEOFENCES, ALL_TRACKS, ALL_USERS,
     USER_MANAGEMENT, USER_GROUP_MANAGEMENT, RESOURCE_MANAGEMENT,
     LOGS_ACCESS, AUDIT_ACCESS, SERVER_MANAGEMENT,
-    ALLOW_MOBILE;
+    ALLOW_MOBILE, BLUETOOTH_DEVICES;
     
     public static Set<UserPermission> getAdminsPermissions() {
         return EnumSet.of(DEVICE_EDIT, DEVICE_SHARE, HISTORY_READ, 
@@ -46,14 +46,15 @@ public enum UserPermission {
                 GEOFENCE_SHARE, ALL_GEOFENCES, TRACK_READ, 
                 TRACK_EDIT, TRACK_SHARE, ALL_TRACKS, USER_MANAGEMENT, 
                 ALL_USERS, NOTIFICATIONS, USER_GROUP_MANAGEMENT, RESOURCE_MANAGEMENT, 
-                LOGS_ACCESS, AUDIT_ACCESS, SERVER_MANAGEMENT, ALLOW_MOBILE, COMMAND_CUSTOM);
+                LOGS_ACCESS, AUDIT_ACCESS, SERVER_MANAGEMENT, ALLOW_MOBILE, COMMAND_CUSTOM,
+                BLUETOOTH_DEVICES);
     }
 
     public static Set<UserPermission> getUsersPermissions() {
         return EnumSet.of(DEVICE_EDIT, DEVICE_SHARE, DEVICE_GROUP_MANAGEMENT, 
                 GEOFENCE_READ, GEOFENCE_EDIT, GEOFENCE_SHARE, HISTORY_READ, 
                 COMMAND_TCP, COMMAND_SMS, DEVICE_STATS, REPORTS, ALERTS_READ, 
-                NOTIFICATIONS, USER_MANAGEMENT, ALLOW_MOBILE);
+                NOTIFICATIONS, USER_MANAGEMENT, ALLOW_MOBILE, BLUETOOTH_DEVICES);
     }
     
     public static Set<UserPermission> getReadOnlyPermissions() {
@@ -98,6 +99,7 @@ public enum UserPermission {
         required.put(UserPermission.AUDIT_ACCESS, EnumSet.of(UserPermission.GEOFENCE_READ, UserPermission.TRACK_READ, UserPermission.HISTORY_READ, UserPermission.LOGS_ACCESS));
         required.put(UserPermission.SERVER_MANAGEMENT, Collections.EMPTY_SET);
         required.put(UserPermission.ALLOW_MOBILE, Collections.EMPTY_SET);
+        required.put(UserPermission.BLUETOOTH_DEVICES, Collections.EMPTY_SET);
 
         for(UserPermission up : UserPermission.values()) {
             EnumSet<UserPermission> requiringSet = EnumSet.noneOf(UserPermission.class);
