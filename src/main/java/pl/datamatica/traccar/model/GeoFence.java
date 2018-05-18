@@ -71,6 +71,20 @@ public class GeoFence extends TimestampedEntity implements IsSerializable {
         return name;
     }
     
+    @GwtTransient
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(nullable = true, foreignKey = @ForeignKey(name = "geofences_fkey_owner_id"))
+    @JsonIgnore
+    private User owner;
+
+    public User getOwner() {
+        return owner;
+    }
+
+    public void setOwner(User owner) {
+        this.owner = owner;
+    }
+    
     @JsonIgnore
     private String description;
 
