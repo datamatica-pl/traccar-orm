@@ -633,6 +633,7 @@ public class User implements IsSerializable, Cloneable {
         this.sessions = new ArrayList<>(sessions);
     }
     
+    @Temporal(TemporalType.TIMESTAMP)
     private Date lastRequestTime;
     
     public Date getLastRequestTime() {
@@ -641,6 +642,27 @@ public class User implements IsSerializable, Cloneable {
     
     public void setLastRequestTime(Date date) {
         this.lastRequestTime = date;
+    }
+    
+    @Temporal(TemporalType.TIMESTAMP)
+    private Date registrationTime;
+    
+    public Date getRegistrationTime() {
+        return registrationTime;
+    }
+    
+    public void setRegistrationTime(Date time) {
+        this.registrationTime = time;
+    }
+    
+    private boolean hadAnyDevice;
+    
+    public boolean hadAnyDevice() {
+        return hadAnyDevice;
+    }
+    
+    public void setHadAnyDevice(boolean value) {
+        this.hadAnyDevice = value;
     }
     
     @Transient
@@ -704,6 +726,10 @@ public class User implements IsSerializable, Cloneable {
     
     @Column(columnDefinition="boolean default false")
     private boolean wasBleUser;
+    
+    public boolean wasBleUser() {
+        return wasBleUser;
+    }
     
     public void setWasBleUser(boolean wasBleUser) {
         this.wasBleUser = wasBleUser;
