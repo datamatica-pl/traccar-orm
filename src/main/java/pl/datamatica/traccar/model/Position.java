@@ -69,6 +69,8 @@ public class Position implements IsSerializable, Cloneable {
         other = position.other;
         distance = position.distance;
         validStatus = position.validStatus;
+        fuelLevel = position.fuelLevel;
+        fuelUsed = position.fuelUsed;
     }
 
     @Id
