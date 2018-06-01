@@ -832,23 +832,23 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         return autoArm;
     }
     
-    private double fuelLevel;
+    private Double fuelLevel;
     
     public double getFuelLevel() {
         return fuelLevel;
     }
     
-    public void setFuelLevel(double lvl) {
+    public void setFuelLevel(Double lvl) {
         this.fuelLevel = lvl;
     }
     
-    private double fuelUsed;
+    private Double fuelUsed;
     
     public double getFuelUsed() {
         return fuelUsed;
     }
 
-    public void setFuelUsed(double used) {
+    public void setFuelUsed(Double used) {
         this.fuelUsed = used;
     }
     
