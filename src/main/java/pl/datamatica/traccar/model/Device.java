@@ -834,7 +834,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     
     private Double fuelLevel;
     
-    public double getFuelLevel() {
+    public Double getFuelLevel() {
         return fuelLevel;
     }
     
@@ -844,7 +844,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     
     private Double fuelUsed;
     
-    public double getFuelUsed() {
+    public Double getFuelUsed() {
         return fuelUsed;
     }
 
