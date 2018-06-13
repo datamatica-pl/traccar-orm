@@ -208,7 +208,8 @@ public class Route implements IsSerializable, Cloneable {
             if(rp.getExitTime() != null)
                 ++donePointsCount;
         }
-        if(forceLast && routePoints.get(routePoints.size()-1).getEnterTime() != null)
+        if(forceLast && routePoints.get(routePoints.size()-1).getEnterTime() != null
+                && routePoints.get(routePoints.size()-1).getExitTime() == null)
             ++donePointsCount;
         return donePointsCount;
     }
