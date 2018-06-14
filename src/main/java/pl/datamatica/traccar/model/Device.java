@@ -699,7 +699,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     }
     
     @GwtIncompatible
-    public Date getLastAvailablePositionDate(Date today) {
+    public Date getLastAvailablePositionDate(Date today, int freeHistoryDays) {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
         try {
             today = sdf.parse(sdf.format(today));
@@ -707,7 +707,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
             Logger.getLogger(Device.class.getName()).log(Level.SEVERE, null, e);
         }
         
-        int availableHistoryLength = DEFAULT_HISTORY_LENGTH_DAYS;
+        int availableHistoryLength = freeHistoryDays;
         if (isValid(today)) {
             availableHistoryLength = getHistoryLength();
         }
@@ -749,10 +749,11 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     }
     
     @GwtIncompatible
-    public int getAlertsHistoryLength() {
+    public int getAlertsHistoryLength(ApplicationSettings settings) {
+        int historyLength = settings.getFreeHistory();
         if(isValid(new Date()))
-            return Math.min(getHistoryLength(), 7);
-        return DEFAULT_HISTORY_LENGTH_DAYS;
+            historyLength = getHistoryLength();
+        return Math.min(historyLength, 7);
     }
     
     @Column(nullable = false, columnDefinition="bit default false")

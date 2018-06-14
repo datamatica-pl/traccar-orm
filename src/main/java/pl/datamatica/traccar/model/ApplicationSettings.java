@@ -15,6 +15,7 @@ public class ApplicationSettings implements IsSerializable {
     public static final short DEFAULT_NOTIFICATION_EXPIRATION_PERIOD = 12 * 60;
     public static final String DEFAULT_MATCH_SERVICE_URL = "https://router.project-osrm.org/match";
     public static final int DEFAULT_ICON_ID = 12;
+    public static final int DEFAULT_FREE_HISTORY = 14;
 
     public static final short UPDATE_INTERVAL_MIN = 1000;
     public static final short UPDATE_INTERVAL_MAX = 30000;
@@ -35,6 +36,7 @@ public class ApplicationSettings implements IsSerializable {
         notificationExpirationPeriod = DEFAULT_NOTIFICATION_EXPIRATION_PERIOD;
         matchServiceURL = DEFAULT_MATCH_SERVICE_URL;
         defaultIconId = DEFAULT_ICON_ID;
+        freeHistory = DEFAULT_FREE_HISTORY;
     }
 
     private boolean registrationEnabled;
@@ -196,7 +198,18 @@ public class ApplicationSettings implements IsSerializable {
     public void setDefaultIconId(int id) {
         this.defaultIconId = id;
     }
-
+    
+    @Column(nullable = false)
+    private int freeHistory;
+    
+    public int getFreeHistory() {
+        return freeHistory;
+    }
+    
+    public void setFreeHistory(int value) {
+        this.freeHistory = value;
+    }
+    
     @Override
     public int hashCode() {
         return (int) (id ^ (id >>> 32));
