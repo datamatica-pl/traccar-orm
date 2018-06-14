@@ -60,8 +60,8 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     public static final String DEFAULT_COLOR = "0000FF";
     
     public static final double DEFAULT_ARROW_RADIUS = 5;
-    public static final int DEFAULT_HISTORY_LENGTH_DAYS = 2;
-    public static final int NEAR_EXPIRATION_THRESHOLD_DAYS = 7; 
+    public static final int DEFAULT_HISTORY_LENGTH_DAYS = 14;
+    public static final int NEAR_EXPIRATION_THRESHOLD_DAYS = 7;
 
     public Device() {
         iconType = DeviceIconType.DEFAULT;
