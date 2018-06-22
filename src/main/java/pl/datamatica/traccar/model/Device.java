@@ -60,7 +60,6 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
     public static final String DEFAULT_COLOR = "0000FF";
     
     public static final double DEFAULT_ARROW_RADIUS = 5;
-    public static final int DEFAULT_HISTORY_LENGTH_DAYS = 2;
     public static final int NEAR_EXPIRATION_THRESHOLD_DAYS = 7; 
 
     public Device() {
@@ -76,7 +75,6 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         showName = true;
         showProtocol = true;
         showOdometer = true;
-        historyLength = DEFAULT_HISTORY_LENGTH_DAYS;
     }
 
     public Device(Device device) {
@@ -737,7 +735,7 @@ public class Device extends TimestampedEntity implements IsSerializable, Grouped
         return (daysLeft <= NEAR_EXPIRATION_THRESHOLD_DAYS && daysLeft > 0);
     }
     
-    @Column(nullable = false, columnDefinition = "integer default " + DEFAULT_HISTORY_LENGTH_DAYS)
+    @Column(nullable = false, columnDefinition = "integer")
     private int historyLength;
     
     public int getHistoryLength() {
