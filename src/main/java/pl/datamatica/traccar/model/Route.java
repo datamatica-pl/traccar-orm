@@ -77,6 +77,7 @@ public class Route implements IsSerializable, Cloneable {
     private boolean forceLast;
     @Column(length=10000)
     private String linePoints;
+    private int length;
     
     public Route() {
         status = Status.NEW;
@@ -110,6 +111,7 @@ public class Route implements IsSerializable, Cloneable {
         this.forceFirst = copy.forceFirst;
         this.forceLast = copy.forceLast;
         this.linePoints = copy.linePoints;
+        this.length = copy.length;
     }
     
     public long getId() {
@@ -253,6 +255,14 @@ public class Route implements IsSerializable, Cloneable {
     public void setCancelTimestamp(Date cancelTimestamp) {
         this.cancelTimestamp = cancelTimestamp;
     }
+    
+    public int getLength() {
+        return length;
+    }
+    
+    public void setLength(int value) {
+        this.length = value;
+    }
 
     public void update(Route updated) {
         this.name = updated.name;
@@ -278,5 +288,6 @@ public class Route implements IsSerializable, Cloneable {
         this.forceFirst = updated.forceFirst;
         this.forceLast = updated.forceLast;
         this.linePoints = updated.linePoints;
+        this.length = updated.length;
     }
 }
