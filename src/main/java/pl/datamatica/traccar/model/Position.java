@@ -27,7 +27,10 @@ import org.hibernate.annotations.BatchSize;
 
 @Entity
 @Table(name = "positions",
-       indexes = { @Index(name="positionsIndex", columnList="device_id,time") })
+        indexes = {
+           @Index(name = "positionsIndex", columnList = "device_id,time"),
+           @Index(name = "serverTime", columnList = "serverTime")}
+)
 @BatchSize(size = 100)
 public class Position implements IsSerializable, Cloneable {
 
